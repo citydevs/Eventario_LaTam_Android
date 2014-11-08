@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Eventario</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Dialogos -->
+    <string name="toast_no_eventos">No hay eventos cerca de ti</string>
+
+    <!-- Mapa -->
+    <string name="mapa_titulo_drawer">Eventos cerca de ti</string>
+    <string name="mapa_inicio_de_viaje">Tu posición</string>
+    <string name="mapa_GPS_OFF">internet apagado inseperado</string>
+    <string name="mapa_no_encontrado">Dirección no encontrada</string>
+    <string name="mapa_texto_significado_el_viaje_inicio">Espera, te estamos localizando</string>
+    <string name="mapa_buscar">Buscar</string>
+    <string name="title_activity_configuracion_activity">Configuracion_activity</string>
+    <string name="mapa_titulo_boton_mas">Buscar en esta zona</string>
+    <string name="mapa_localizando">Actualizando, espera ....</string>
+
+    <!-- Configuracion -->
+    <string name="configuracion_terminos">Terminos de uso</string>
+    <string name="configuracion_acercade">Acerca de</string>
+    <string name="configuracion_creditos">Créditos</string>
+    <string name="configuracion_aceptar">Aceptar</string>
+    <string name="configuracion_titulo_distancia">Distancia de búsqueda:</string>
+    <string name="title_activity_detalle_evento_">Detalle_evento_Activity</string>
+
+    <!-- Detalle evento -->
+    <string name="detalle_ab_titulo">Evento</string>
+    <string name="detalle_acerca_de">Eventario es una aplicación móvil que determina tu localización y te sugiere los eventos que la ciudad promueve. Al seleccionar un evento, la aplicación te muestra una descripción con detalles como la fecha, hora, lugar y precio, además de que te indica cómo llegar. Para encontrar actividades también puedes ingresar una dirección específica o usar la navegación en el mapa. La información de los eventos que encuentres la puedes compartir en Facebook y en Twitter, para así ayudar a promover las actividades que te parezcan más interesantes.</string>
+    <string name="detalle_terminos">Esta aplicación es de código abierto, desarrollada durante el programa CódigoCDMX del LabPLC, puedes encontrar más información en www.eventario.mx</string>
+   <string name="detalle_ab_creditos">Eventario fué derrollado por:\n\n
+       Carlos Castellanos - iOS Developer\n@rockarloz\n\n
+       Miguel Morán - Android Developer\n@yosoymikesaurio\n\n
+       Juan Carlos Sánchez - Ruby Developer\n@juancar1os\n\n En colaboración de Gabriela Olivera y Jóse Espinosa.</string>
+    <string name="detalle_precio">Precio</string>
+    <string name="no_pagina">No tiene página web</string>
+    <string name="detalle_descripcion">Descripción</string>
+    <string name="detalle_telefono">Teléfono</string>
+
+    <!-- dialogo GPS -->
+    <string name="dialogo_gps_titulo">Aviso</string>
+    <string name="dialogo_gps_texto">Eventario requiere usar internet ¿Quiéres encenderla?</string>
+    <string name="dialogo_gps_cancelar">Cancelar</string>
+    <string name="dialogo_gps_aceptar">Aceptar</string>
+    <string name="title_activity_mapa_llegar_evento">Mapa_llegar_evento</string>
+    <string name="title_activity_pagina_web_evento">PaginaWebEvento</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    
+    
+    
+
+</resources>
