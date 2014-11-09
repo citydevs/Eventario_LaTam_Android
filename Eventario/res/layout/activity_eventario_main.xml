@@ -52,7 +52,8 @@
                     android:id="@+id/ll_main_categorias"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal" 
+                    android:background="@drawable/marco_todo">
 
                    
                     
@@ -60,6 +61,7 @@
             </HorizontalScrollView>
 
             <TextView
+                android:id="@+id/tv_main_titulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/marco_top"

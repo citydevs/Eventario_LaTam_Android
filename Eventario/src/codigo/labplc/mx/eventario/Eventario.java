@@ -9,6 +9,8 @@ import com.google.android.gms.analytics.Logger;
 import com.google.android.gms.analytics.Tracker;
 
 public class Eventario extends Application {
+	
+	
 	// The following line should be changed to include the correct property id.
 	private static final String PROPERTY_ID = "UA-56507535-1";
 

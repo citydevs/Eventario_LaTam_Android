@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -17,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
@@ -257,6 +259,99 @@ public class Utils {
 				int width = size.x;
 				int height = size.y;
 				return (new Point (width,height));
+			}
+			
+			
+			
+			public static beanEventos getFiltraCategoria(String tipo, beanEventos bean) {
+				beanEventos b= new beanEventos();
+				
+				List<String> nombre = new ArrayList<String>();
+				List<String> lugar = new ArrayList<String>();
+				List<String> hora_inicio = new ArrayList<String>();
+				List<String>  hora_fin = new ArrayList<String>();
+				List<Integer>  imagen= new ArrayList<Integer>();
+				List<String> descripcion = new ArrayList<String>();
+				List<String> precio = new ArrayList<String>();
+				List<String>  direccion= new ArrayList<String>();
+				List<String> fuente = new ArrayList<String>();
+				List<String> fecha_inicio = new ArrayList<String>();
+				List<String> fecha_fin = new ArrayList<String>();
+				List<String> categoria = new ArrayList<String>();
+				List<String>  contacto= new ArrayList<String>();
+				List<String> pagina = new ArrayList<String>();
+				List<String> latitud = new ArrayList<String>();
+				List<String>  longitud= new ArrayList<String>();
+				List<String>  distancia= new ArrayList<String>();
+				List<String> url = new ArrayList<String>();
+				List<String> id_marker = new ArrayList<String>();
+				
+				
+				
+				
+				
+				for(int i=0;i<bean.getCategoria().length;i++){
+					if(bean.getCategoria()[i].equals(tipo)){
+						nombre.add(bean.getNombre()[i]); 
+					  	lugar.add(bean.getLugar()[i]); 
+					  	hora_inicio.add(bean.getHora_inicio()[i]); 
+					  	hora_fin.add(bean.getHora_fin()[i]); 
+					  	imagen.add(bean.getImagen()[i]); 
+					  	descripcion.add(bean.getDescripcion()[i]);  
+					  	precio.add(bean.getPrecio()[i]);  
+					  	direccion .add(bean.getDireccion()[i]); 
+					  	fuente.add(bean.getFuente()[i]);  
+					  	fecha_inicio.add(bean.getFecha_inicio()[i]);  
+					  	fecha_fin.add(bean.getFecha_fin()[i]); 
+					  	categoria.add(bean.getCategoria()[i]);  
+					  	contacto .add(bean.getContacto()[i]); 
+					  	pagina.add(bean.getPagina()[i]);  
+					  	latitud.add(bean.getLatitud()[i]);  
+					  	longitud.add(bean.getLongitud()[i]);  
+					  	distancia.add(bean.getDistancia()[i]);  
+					  	url.add(bean.getUrl()[i]);
+					  	id_marker.add(bean.getId_marker()[i]); 
+					}
+				}
+				
+				b.setNombre(nombre.toArray(new String[nombre .size()]));
+				b.setLugar(lugar.toArray(new String[lugar .size()]));
+				b.setHora_inicio(hora_inicio.toArray(new String[hora_inicio .size()]));
+				b.setHora_fin(hora_fin.toArray(new String[hora_fin .size()]));
+				b.setImagen(imagen.toArray(new Integer[imagen .size()]));
+				b.setDescripcion(descripcion.toArray(new String[descripcion .size()]));
+				b.setPrecio(precio.toArray(new String[precio .size()]));
+				b.setDireccion(direccion.toArray(new String[direccion .size()]));
+				b.setFuente(fuente.toArray(new String[fuente .size()]));
+				b.setFecha_inicio(fecha_inicio.toArray(new String[fecha_inicio .size()]));
+				b.setFecha_fin(fecha_fin.toArray(new String[fecha_fin .size()]));
+				b.setCategoria(categoria.toArray(new String[categoria .size()]));
+				b.setContacto(contacto.toArray(new String[contacto .size()]));
+				b.setPagina(pagina.toArray(new String[pagina .size()]));
+				b.setLatitud(latitud.toArray(new String[latitud .size()]));
+				b.setLongitud(longitud.toArray(new String[longitud .size()]));
+				b.setUrl(url.toArray(new String[url .size()]));
+				b.setDistancia(distancia.toArray(new String[distancia .size()]));
+				b.setId_marker(id_marker.toArray(new String[id_marker .size()]));
+				
+				
+				
+				return b;
+			}
+			
+			
+			
+			/**
+			 * dialogo de espera
+			 */
+			public static ProgressDialog anillo(Activity activity, ProgressDialog pDialog){
+				pDialog = new ProgressDialog(activity);
+		 		pDialog.setCanceledOnTouchOutside(false);
+		 		pDialog.setMessage(activity.getString(R.string.mapa_texto_significado_el_viaje_inicio));
+		 		pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		 		pDialog.setCancelable(false);
+		 		return pDialog;
+
 			}
 	 
 }

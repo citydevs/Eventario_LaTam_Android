@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import codigo.labplc.mx.eventario.R;
 
@@ -20,6 +21,7 @@ public class CustomList extends ArrayAdapter<String> {
     private final String[] hora_fin;
     private final String[] distancia;
     private final Integer[] imagen;
+    private boolean conImagenes = true;
 
 
     /**
@@ -30,8 +32,9 @@ public class CustomList extends ArrayAdapter<String> {
      * @param hora_fin
      * @param distancia
      * @param imagen
+     * @param conImagenes 
      */
-    public CustomList(Activity context,String[] nombre,String[] hora_inicio,String[] hora_fin,String[] distancia,Integer[] imagen) {
+    public CustomList(Activity context,String[] nombre,String[] hora_inicio,String[] hora_fin,String[] distancia,Integer[] imagen, boolean conImagenes) {
         super(context, R.layout.list_simple, nombre);
         this.context = context;
         this.nombre = nombre;
@@ -39,6 +42,7 @@ public class CustomList extends ArrayAdapter<String> {
         this.hora_fin= hora_fin;
         this.distancia= distancia;
         this.imagen=imagen;
+        this.conImagenes=conImagenes;
 
     }
     
@@ -61,6 +65,9 @@ public class CustomList extends ArrayAdapter<String> {
         txtDistancia.setText(distancia[position]);
         ImageView row_iv_evento =(ImageView)rowView.findViewById(R.id.row_iv_evento);
         row_iv_evento.setImageDrawable(context.getResources().getDrawable(imagen[position]));
+        if(!conImagenes){
+        	((LinearLayout)rowView.findViewById(R.id.ll_list_simple)).setVisibility(ImageView.GONE);
+        }
         return rowView;
     }
     

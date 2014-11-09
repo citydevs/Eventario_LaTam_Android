@@ -4,7 +4,6 @@ package codigo.labplc.mx.eventario;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -84,6 +83,8 @@ public class Eventario_main extends Activity {
 	private  CustomList adapter;
 	private SlidingDrawer drawer;
 	private LinearLayout ll_main_categorias;
+	private boolean conImagenes = true;
+	private TextView tv_main_titulo;
 
 
 	
@@ -117,7 +118,8 @@ public class Eventario_main extends Activity {
 		 }
 		
 	     if(lat==19.0){
-	    	anillo();
+	    	pDialog=Utils.anillo(Eventario_main.this,pDialog);
+	    	pDialog.show();
 	     }
 	    	
 	     list=(ListView)findViewById(R.id.list);
@@ -143,6 +145,7 @@ public class Eventario_main extends Activity {
 			public void onDrawerOpened() {
 				handle.setImageResource(R.drawable.ic_launcher_flechas);
 				
+				
 			}
 		});
 		drawer.setOnDrawerCloseListener(new OnDrawerCloseListener() {
@@ -150,6 +153,7 @@ public class Eventario_main extends Activity {
 			@Override
 			public void onDrawerClosed() {
 				handle.setImageResource(R.drawable.ic_launcher_mas);
+				eventario_main_btn_busca_aqui.setVisibility(Button.INVISIBLE);
 				
 			}
 		});
@@ -159,7 +163,7 @@ public class Eventario_main extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				
+				drawer.close();
 				CameraPosition cameraPosition;
 				cameraPosition = new CameraPosition.Builder().target(new LatLng(lat, lon)).zoom(map.getCameraPosition().zoom).build();
 				map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -197,6 +201,7 @@ public class Eventario_main extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				drawer.close();
 				Uploaded nuevaTareas = new Uploaded();
 				nuevaTareas.execute(map.getCameraPosition().target.latitude+"",map.getCameraPosition().target.longitude+"");
 				
@@ -204,6 +209,7 @@ public class Eventario_main extends Activity {
 		});
 		
 		ll_main_categorias=(LinearLayout)findViewById(R.id.ll_main_categorias);
+		tv_main_titulo=(TextView)findViewById(R.id.tv_main_titulo);
 		
 		
 		setUpMapIfNeeded();
@@ -215,6 +221,7 @@ public class Eventario_main extends Activity {
 	 * 
 	 */
 	public void direccionIngresada() {
+		drawer.close();
 		String direccion_busqueda=   eventario_main_et_direccion.getText().toString(); 
 		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
     	imm.hideSoftInputFromWindow(eventario_main_et_direccion.getWindowToken(), 0);
@@ -250,14 +257,14 @@ public class Eventario_main extends Activity {
 				b=bean;
 				
 			}else {
-				b = getFiltraCategoria(tipo);
+				b = Utils.getFiltraCategoria(tipo,bean);
 				
 			}
 			
 			bean_cat=b;
 
 			
-			 adapter = new CustomList(Eventario_main.this, b.getNombre(), b.getHora_inicio(),b.getHora_fin(),b.getDistancia(),b.getImagen());
+			 adapter = new CustomList(Eventario_main.this, b.getNombre(), b.getHora_inicio(),b.getHora_fin(),b.getDistancia(),b.getImagen(),conImagenes);
 			        
 			    
 			return b;
@@ -270,81 +277,7 @@ public class Eventario_main extends Activity {
 	
 	
 	
-	public beanEventos getFiltraCategoria(String tipo) {
-		beanEventos b= new beanEventos();
-		
-		List<String> nombre = new ArrayList<String>();
-		List<String> lugar = new ArrayList<String>();
-		List<String> hora_inicio = new ArrayList<String>();
-		List<String>  hora_fin = new ArrayList<String>();
-		List<Integer>  imagen= new ArrayList<Integer>();
-		List<String> descripcion = new ArrayList<String>();
-		List<String> precio = new ArrayList<String>();
-		List<String>  direccion= new ArrayList<String>();
-		List<String> fuente = new ArrayList<String>();
-		List<String> fecha_inicio = new ArrayList<String>();
-		List<String> fecha_fin = new ArrayList<String>();
-		List<String> categoria = new ArrayList<String>();
-		List<String>  contacto= new ArrayList<String>();
-		List<String> pagina = new ArrayList<String>();
-		List<String> latitud = new ArrayList<String>();
-		List<String>  longitud= new ArrayList<String>();
-		List<String>  distancia= new ArrayList<String>();
-		List<String> url = new ArrayList<String>();
-		List<String> id_marker = new ArrayList<String>();
-		
-		
-		
-		
-		
-		for(int i=0;i<bean.getCategoria().length;i++){
-			if(bean.getCategoria()[i].equals(tipo)){
-				nombre.add(bean.getNombre()[i]); 
-			  	lugar.add(bean.getLugar()[i]); 
-			  	hora_inicio.add(bean.getHora_inicio()[i]); 
-			  	hora_fin.add(bean.getHora_fin()[i]); 
-			  	imagen.add(bean.getImagen()[i]); 
-			  	descripcion.add(bean.getDescripcion()[i]);  
-			  	precio.add(bean.getPrecio()[i]);  
-			  	direccion .add(bean.getDireccion()[i]); 
-			  	fuente.add(bean.getFuente()[i]);  
-			  	fecha_inicio.add(bean.getFecha_inicio()[i]);  
-			  	fecha_fin.add(bean.getFecha_fin()[i]); 
-			  	categoria.add(bean.getCategoria()[i]);  
-			  	contacto .add(bean.getContacto()[i]); 
-			  	pagina.add(bean.getPagina()[i]);  
-			  	latitud.add(bean.getLatitud()[i]);  
-			  	longitud.add(bean.getLongitud()[i]);  
-			  	distancia.add(bean.getDistancia()[i]);  
-			  	url.add(bean.getUrl()[i]);
-			  	id_marker.add(bean.getId_marker()[i]); 
-			}
-		}
-		
-		b.setNombre(nombre.toArray(new String[nombre .size()]));
-		b.setLugar(lugar.toArray(new String[lugar .size()]));
-		b.setHora_inicio(hora_inicio.toArray(new String[hora_inicio .size()]));
-		b.setHora_fin(hora_fin.toArray(new String[hora_fin .size()]));
-		b.setImagen(imagen.toArray(new Integer[imagen .size()]));
-		b.setDescripcion(descripcion.toArray(new String[descripcion .size()]));
-		b.setPrecio(precio.toArray(new String[precio .size()]));
-		b.setDireccion(direccion.toArray(new String[direccion .size()]));
-		b.setFuente(fuente.toArray(new String[fuente .size()]));
-		b.setFecha_inicio(fecha_inicio.toArray(new String[fecha_inicio .size()]));
-		b.setFecha_fin(fecha_fin.toArray(new String[fecha_fin .size()]));
-		b.setCategoria(categoria.toArray(new String[categoria .size()]));
-		b.setContacto(contacto.toArray(new String[contacto .size()]));
-		b.setPagina(pagina.toArray(new String[pagina .size()]));
-		b.setLatitud(latitud.toArray(new String[latitud .size()]));
-		b.setLongitud(longitud.toArray(new String[longitud .size()]));
-		b.setUrl(url.toArray(new String[url .size()]));
-		b.setDistancia(distancia.toArray(new String[distancia .size()]));
-		b.setId_marker(id_marker.toArray(new String[id_marker .size()]));
-		
-		
-		
-		return b;
-	}
+	
 	
 	
 	
@@ -370,17 +303,7 @@ public class Eventario_main extends Activity {
 	   return b;
 	}
 
-	/**
-	 * dialogo de espera
-	 */
-	public void anillo(){
-		pDialog = new ProgressDialog(Eventario_main.this);
- 		pDialog.setCanceledOnTouchOutside(false);
- 		pDialog.setMessage(getResources().getString(R.string.mapa_texto_significado_el_viaje_inicio));
- 		pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
- 		pDialog.setCancelable(false);
- 		pDialog.show();
-	}
+	
 	
 	
 	
@@ -523,52 +446,7 @@ public class Eventario_main extends Activity {
 	
 	
 	
-		@Override
-		protected void onDestroy() {
-		if(pDialog!=null){
-	    	pDialog.dismiss();
-	    }
-		
-			isLocalizado=0;
-			super.onDestroy();
-		}
-
-		@Override
-		protected void onPause() {
-			pause= true;
-			try{
-				unregisterReceiver(onBroadcast);
-				if(pDialog!=null){
-			 		pDialog.dismiss();	
-			 	}
-				
-		 		stopService(new Intent(Eventario_main.this, ServicioGeolocalizacion.class));
-			}catch(Exception e){
-				
-			}
-			super.onPause();
-		}
-
-		@Override
-		protected void onResume() {
-			if(Dialogos.customDialog!=null){
-				Dialogos.customDialog.dismiss();
-			}
-			if (!Utils.isNetworkConnectionOk(getApplicationContext())) {
-				new Dialogos().showDialogGPS(Eventario_main.this).show();		
-			}else{
-				if(pause){
-					 init();
-					 pause=false;
-				}
-			}
-			try{
-					 registerReceiver(onBroadcast, new IntentFilter("key"));
-			}catch(Exception e){}
-			
-			super.onResume();
-		}
-
+	
 				
 		/**
 		 * Crea un intent para pasar toda la informacion
@@ -626,11 +504,8 @@ public class Eventario_main extends Activity {
 		public boolean dispatchTouchEvent(MotionEvent ev) {
 			switch (ev.getAction()) {
 			case MotionEvent.ACTION_DOWN:
-				//lastTouched = SystemClock.uptimeMillis();
 				break;
 			case MotionEvent.ACTION_UP:
-				//final long now = SystemClock.uptimeMillis();
-				//if ((now - lastTouched > SCROLL_TIME)&&
 				if(Utils.getDistanceMeters(lat, lon,map.getCameraPosition().target.latitude, map.getCameraPosition().target.longitude)>=1000) {
 					eventario_main_btn_busca_aqui.setVisibility(Button.VISIBLE);
 				}else{
@@ -664,6 +539,7 @@ public class Eventario_main extends Activity {
 					
 					bean = Utils.llenarEventos(lat_+"",lon_+"",radio,horaInicio);
 					if(bean!=null){
+						conImagenes=true;
 						cargarEventos("");
 					}
 				} catch (Exception e) {
@@ -690,9 +566,11 @@ public class Eventario_main extends Activity {
 				if(bean!=null){
 					list.setAdapter(null);
 					list.setAdapter(adapter);
+					drawer.setVisibility(SlidingDrawer.VISIBLE);
 				}else{
 					new Dialogos().Toast(Eventario_main.this,getResources().getString(R.string.toast_no_eventos), Toast.LENGTH_SHORT);
 					list.setAdapter(null);
+					drawer.setVisibility(SlidingDrawer.GONE);
 				}
 				
 				map.clear();
@@ -734,19 +612,24 @@ public class Eventario_main extends Activity {
 			
 			ll_main_categorias.removeAllViews();
 			
-			ImageView imagen_todos = new ImageView(Eventario_main.this);
+		final	ImageView imagen_todos = new ImageView(Eventario_main.this);
 			imagen_todos.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher));
 			imagen_todos.setTag("todos");
-			imagen_todos.setBackground(getResources().getDrawable(R.drawable.marco_todo));
 			imagen_todos.setPadding(10, 0, 10, 0);
+			imagen_todos.setBackground(getResources().getDrawable(R.drawable.marco_todo));
 			imagen_todos.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
+					conImagenes=true;
 					cargarEventos("");
 					list.setAdapter(null);
 					list.setAdapter(adapter);
 					catalogo_Mapa(bean);
+					limpiarLinearLayout();
+					tv_main_titulo.setText(getResources().getString(R.string.mapa_titulo_drawer));
+					imagen_todos.setBackground(getResources().getDrawable(R.drawable.marco_todo));
+					
 				}
 			});
 			ll_main_categorias.addView(imagen_todos);
@@ -792,16 +675,31 @@ public class Eventario_main extends Activity {
 						
 						@Override
 						public void onClick(View v) {
+							conImagenes=false;
 							beanEventos b_=cargarEventos(v.getTag().toString());
+							limpiarLinearLayout();
+							imagen_todos.setBackground(getResources().getDrawable(R.drawable.marco_nada));
+							v.setBackground(getResources().getDrawable(R.drawable.marco_todo));
+							tv_main_titulo.setText(v.getTag().toString());
+							
 							list.setAdapter(null);
 							list.setAdapter(adapter);
 							catalogo_Mapa(b_);
 						}
+
+						
 					});
 					ll_main_categorias.addView(imagen);
 				}
 				
 			}
+			
+		}
+		
+		private void limpiarLinearLayout() {
+		for(int i=0;i<ll_main_categorias.getChildCount();i++){
+			ll_main_categorias.getChildAt(i).setBackground(getResources().getDrawable(R.drawable.marco_left));
+		}
 			
 		}
 		
@@ -816,16 +714,56 @@ public class Eventario_main extends Activity {
 		@Override
 		public void onStart() {
 		  super.onStart();
-		  // Get tracker.
 	        Tracker t = ((Eventario) getApplication()).getTracker(
 	            TrackerName.APP_TRACKER);
-
-	        // Set screen name.
-	        // Where path is a String representing the screen name.
-	        t.setScreenName("Main");
-
-	        // Send a screen view.
+	        t.setScreenName("EventarioMain");
 	        t.send(new HitBuilders.AppViewBuilder().build());
 		}
+		@Override
+		protected void onDestroy() {
+		if(pDialog!=null){
+	    	pDialog.dismiss();
+	    }
+		
+			isLocalizado=0;
+			super.onDestroy();
+		}
+
+		@Override
+		protected void onPause() {
+			pause= true;
+			try{
+				unregisterReceiver(onBroadcast);
+				if(pDialog!=null){
+			 		pDialog.dismiss();	
+			 	}
+				
+		 		stopService(new Intent(Eventario_main.this, ServicioGeolocalizacion.class));
+			}catch(Exception e){
+				
+			}
+			super.onPause();
+		}
+
+		@Override
+		protected void onResume() {
+			if(Dialogos.customDialog!=null){
+				Dialogos.customDialog.dismiss();
+			}
+			if (!Utils.isNetworkConnectionOk(getApplicationContext())) {
+				new Dialogos().showDialogGPS(Eventario_main.this).show();		
+			}else{
+				if(pause){
+					 init();
+					 pause=false;
+				}
+			}
+			try{
+					 registerReceiver(onBroadcast, new IntentFilter("key"));
+			}catch(Exception e){}
+			
+			super.onResume();
+		}
+
 		
 }
