@@ -16,11 +16,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.StrictMode;
+import android.view.Display;
 import codigo.labplc.mx.eventario.R;
 import codigo.labplc.mx.eventario.bean.InfoPointBean;
 import codigo.labplc.mx.eventario.bean.beanEventos;
@@ -99,7 +102,7 @@ public class Utils {
 				  	String[] lugar = new String[jsonarray.length()];;
 				  	String[] hora_inicio = new String[jsonarray.length()];
 				  	String[] hora_fin = new String[jsonarray.length()];
-				  	int[] imagen = new int[jsonarray.length()];
+				  	Integer[] imagen = new Integer[jsonarray.length()];
 				  	String[] descripcion = new String[jsonarray.length()];
 				  	String[] precio = new String[jsonarray.length()];
 				  	String[] direccion = new String[jsonarray.length()];
@@ -239,5 +242,21 @@ public class Utils {
 			 return null;
 		 }
 	 }
+	 
+	 
+	 /**
+		 * obtienes el tama–o de pantalla
+		 * @param (activity) Activity
+		 * @return (Point) .x = width
+		 * 					.y = height 
+		 */
+			public static Point getTamanoPantalla(Activity activity){
+				Display display = activity.getWindowManager().getDefaultDisplay();
+				Point size = new Point();
+				 display.getSize(size);
+				int width = size.x;
+				int height = size.y;
+				return (new Point (width,height));
+			}
 	 
 }

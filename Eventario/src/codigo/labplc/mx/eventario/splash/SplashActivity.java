@@ -3,12 +3,15 @@ package codigo.labplc.mx.eventario.splash;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import codigo.labplc.mx.eventario.Eventario_main;
-import codigo.labplc.mx.eventario.R;
-import codigo.labplc.mx.eventario.R.layout;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
+import codigo.labplc.mx.eventario.Eventario_main;
+import codigo.labplc.mx.eventario.R;
+import codigo.labplc.mx.eventario.utils.Utils;
 
 public class SplashActivity extends Activity {
 
@@ -21,6 +24,12 @@ public class SplashActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_screen);
+		FrameLayout frame_splash = (FrameLayout) findViewById(R.id.frame_splash);
+		Point p = Utils.getTamanoPantalla(SplashActivity.this); //tama–o de pantalla
+		
+		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(p.x / 2, p.y / 3);
+		lp.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+		frame_splash.setLayoutParams(lp);
 		iniciarSplash();
 	}
 	

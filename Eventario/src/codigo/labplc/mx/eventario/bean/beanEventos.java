@@ -11,7 +11,7 @@ public class beanEventos {
 	private String[] lugar;
 	private String[] hora_inicio;
 	private String[] hora_fin;
-	private int[] imagen;
+	private Integer[] imagen;
 	private String[] descripcion;
 	private String[] precio;
 	private String[] direccion;
@@ -57,11 +57,11 @@ public class beanEventos {
 	public void setHora_fin(String[] hora_fin) {
 		this.hora_fin = hora_fin;
 	}
-	public int[] getImagen() {
+	public Integer[] getImagen() {
 		return imagen;
 	}
-	public void setImagen(int[] imagen) {
-		this.imagen = imagen;
+	public void setImagen(Integer[] integers) {
+		this.imagen = integers;
 	}
 	public String[] getDescripcion() {
 		return descripcion;

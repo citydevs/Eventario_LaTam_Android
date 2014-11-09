@@ -4,6 +4,7 @@ package codigo.labplc.mx.eventario;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -23,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SlidingDrawer;
 import android.widget.SlidingDrawer.OnDrawerCloseListener;
@@ -69,7 +71,7 @@ public class Eventario_main extends Activity {
 	private ProgressDialog pDialog;
 	private int isLocalizado = 0;
     private ListView list;
-	private beanEventos bean;
+	private beanEventos bean,bean_cat;
 	private String radio="2";
 	private String progreso;
 	private String id_ubicacion;
@@ -81,6 +83,7 @@ public class Eventario_main extends Activity {
 	public String lat_,lon_;
 	private  CustomList adapter;
 	private SlidingDrawer drawer;
+	private LinearLayout ll_main_categorias;
 
 
 	
@@ -88,7 +91,6 @@ public class Eventario_main extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_eventario_main);
-		//
 		
 		if (!Utils.isNetworkConnectionOk(Eventario_main.this)) {
 			new Dialogos().showDialogGPS(Eventario_main.this).show();		
@@ -123,7 +125,10 @@ public class Eventario_main extends Activity {
 	            @Override
 	            public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
 	       
-	            	abrirDetalles(bean.getId_marker()[position]);
+	            	if(bean_cat==null){
+	            		bean_cat=bean;
+	            	}
+	            	abrirDetalles(bean_cat.getId_marker()[position]);
 	            }
 	        });
 	     
@@ -197,6 +202,10 @@ public class Eventario_main extends Activity {
 				
 			}
 		});
+		
+		ll_main_categorias=(LinearLayout)findViewById(R.id.ll_main_categorias);
+		
+		
 		setUpMapIfNeeded();
 		
 	}
@@ -234,20 +243,133 @@ public class Eventario_main extends Activity {
 	 * carga en la lista los eventos 
 	 * @return
 	 */
-	public boolean cargarEventos(){
+	public beanEventos  cargarEventos(String tipo){
 		try{
-			 
-			 adapter = new CustomList(Eventario_main.this, bean.getNombre(), bean.getHora_inicio(),bean.getHora_fin(),bean.getDistancia(),bean.getImagen());
+			beanEventos b= new beanEventos();
+			if(tipo.equals("")){
+				b=bean;
+				
+			}else {
+				b = getFiltraCategoria(tipo);
+				
+			}
+			
+			bean_cat=b;
+
+			
+			 adapter = new CustomList(Eventario_main.this, b.getNombre(), b.getHora_inicio(),b.getHora_fin(),b.getDistancia(),b.getImagen());
 			        
 			    
-			return true;
+			return b;
 		}catch(Exception e){
 			e.printStackTrace();
-		return false;
+		return null;
 		}
 		
 	}
 	
+	
+	
+	public beanEventos getFiltraCategoria(String tipo) {
+		beanEventos b= new beanEventos();
+		
+		List<String> nombre = new ArrayList<String>();
+		List<String> lugar = new ArrayList<String>();
+		List<String> hora_inicio = new ArrayList<String>();
+		List<String>  hora_fin = new ArrayList<String>();
+		List<Integer>  imagen= new ArrayList<Integer>();
+		List<String> descripcion = new ArrayList<String>();
+		List<String> precio = new ArrayList<String>();
+		List<String>  direccion= new ArrayList<String>();
+		List<String> fuente = new ArrayList<String>();
+		List<String> fecha_inicio = new ArrayList<String>();
+		List<String> fecha_fin = new ArrayList<String>();
+		List<String> categoria = new ArrayList<String>();
+		List<String>  contacto= new ArrayList<String>();
+		List<String> pagina = new ArrayList<String>();
+		List<String> latitud = new ArrayList<String>();
+		List<String>  longitud= new ArrayList<String>();
+		List<String>  distancia= new ArrayList<String>();
+		List<String> url = new ArrayList<String>();
+		List<String> id_marker = new ArrayList<String>();
+		
+		
+		
+		
+		
+		for(int i=0;i<bean.getCategoria().length;i++){
+			if(bean.getCategoria()[i].equals(tipo)){
+				nombre.add(bean.getNombre()[i]); 
+			  	lugar.add(bean.getLugar()[i]); 
+			  	hora_inicio.add(bean.getHora_inicio()[i]); 
+			  	hora_fin.add(bean.getHora_fin()[i]); 
+			  	imagen.add(bean.getImagen()[i]); 
+			  	descripcion.add(bean.getDescripcion()[i]);  
+			  	precio.add(bean.getPrecio()[i]);  
+			  	direccion .add(bean.getDireccion()[i]); 
+			  	fuente.add(bean.getFuente()[i]);  
+			  	fecha_inicio.add(bean.getFecha_inicio()[i]);  
+			  	fecha_fin.add(bean.getFecha_fin()[i]); 
+			  	categoria.add(bean.getCategoria()[i]);  
+			  	contacto .add(bean.getContacto()[i]); 
+			  	pagina.add(bean.getPagina()[i]);  
+			  	latitud.add(bean.getLatitud()[i]);  
+			  	longitud.add(bean.getLongitud()[i]);  
+			  	distancia.add(bean.getDistancia()[i]);  
+			  	url.add(bean.getUrl()[i]);
+			  	id_marker.add(bean.getId_marker()[i]); 
+			}
+		}
+		
+		b.setNombre(nombre.toArray(new String[nombre .size()]));
+		b.setLugar(lugar.toArray(new String[lugar .size()]));
+		b.setHora_inicio(hora_inicio.toArray(new String[hora_inicio .size()]));
+		b.setHora_fin(hora_fin.toArray(new String[hora_fin .size()]));
+		b.setImagen(imagen.toArray(new Integer[imagen .size()]));
+		b.setDescripcion(descripcion.toArray(new String[descripcion .size()]));
+		b.setPrecio(precio.toArray(new String[precio .size()]));
+		b.setDireccion(direccion.toArray(new String[direccion .size()]));
+		b.setFuente(fuente.toArray(new String[fuente .size()]));
+		b.setFecha_inicio(fecha_inicio.toArray(new String[fecha_inicio .size()]));
+		b.setFecha_fin(fecha_fin.toArray(new String[fecha_fin .size()]));
+		b.setCategoria(categoria.toArray(new String[categoria .size()]));
+		b.setContacto(contacto.toArray(new String[contacto .size()]));
+		b.setPagina(pagina.toArray(new String[pagina .size()]));
+		b.setLatitud(latitud.toArray(new String[latitud .size()]));
+		b.setLongitud(longitud.toArray(new String[longitud .size()]));
+		b.setUrl(url.toArray(new String[url .size()]));
+		b.setDistancia(distancia.toArray(new String[distancia .size()]));
+		b.setId_marker(id_marker.toArray(new String[id_marker .size()]));
+		
+		
+		
+		return b;
+	}
+	
+	
+	
+	public beanEventos catalogo_Mapa(beanEventos b){
+		
+		map.clear();
+		marker.position(new LatLng(Double.parseDouble(lat_),Double.parseDouble(lon_)));
+		Marker m=map.addMarker(marker);
+		id_ubicacion=m.getId();
+	   	
+	   if(b!=null){
+		id_markers = new String[b.getLatitud().length];
+		for(int i=0;i<b.getLatitud().length;i++){
+			MarkerOptions markerte= new MarkerOptions();
+			markerte.position(new LatLng(Double.parseDouble(b.getLatitud()[i]), Double.parseDouble(b.getLongitud()[i])));
+			markerte.title(b.getNombre()[i]+"@@"+b.getLugar()[i]);
+			markerte.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher_pin));
+			Marker ma =map.addMarker(markerte);
+			id_markers[i] = ma.getId();
+		}
+	   	b.setId_marker(id_markers);
+	   }
+	   return b;
+	}
+
 	/**
 	 * dialogo de espera
 	 */
@@ -318,9 +440,7 @@ public class Eventario_main extends Activity {
 		marker.title(getResources().getString(R.string.mapa_inicio_de_viaje));
 		marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher_chinche_llena));
 		
-	//	CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(lat, lon)).zoom(14).build();
-		//map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-		// adding marker
+	
 		Marker m = map.addMarker(marker);	
 		id_ubicacion=m.getId();
 	}
@@ -348,6 +468,7 @@ public class Eventario_main extends Activity {
 				@Override
 				public void onInfoWindowClick(Marker marker) {
 					if(!marker.getId().toString().equals(id_ubicacion)){
+						
 						abrirDetalles(marker.getId().toString());
 					}
 					
@@ -454,28 +575,31 @@ public class Eventario_main extends Activity {
 		 * @param id (String) identificador 
 		 */
 		public void abrirDetalles(String id) {
-			for(int i=0;i<bean.getId_marker().length;i++){
-				if(bean.getId_marker()[i].toString().equals(id)){
+			if(bean_cat==null){
+				bean_cat=bean;
+			}
+			for(int i=0;i<bean_cat.getId_marker().length;i++){
+				if(bean_cat.getId_marker()[i].toString().equals(id)){
 						Intent intent = new Intent(Eventario_main.this,Detalle_evento_Activity.class);
-						intent.putExtra("nombre", bean.getNombre()[i]);
-						intent.putExtra("lugar", bean.getLugar()[i]);
-						intent.putExtra("hora_inicio", bean.getHora_inicio()[i]);
-						intent.putExtra("hora_fin", bean.getHora_fin()[i]);
-						intent.putExtra("imagen", bean.getImagen()[i]);
-						intent.putExtra("descripcion", bean.getDescripcion()[i]);
-						intent.putExtra("precio", bean.getPrecio()[i]);
-						intent.putExtra("direccion", bean.getDireccion()[i]);
-						intent.putExtra("fuente", bean.getFuente()[i]);
-						intent.putExtra("fecha_inicio", bean.getFecha_inicio()[i]);
-						intent.putExtra("fecha_fin", bean.getFecha_fin()[i]);
-						intent.putExtra("categoria", bean.getCategoria()[i]);
-						intent.putExtra("contacto", bean.getContacto()[i]);
-						intent.putExtra("pagina", bean.getPagina()[i]);
-						intent.putExtra("latitud", bean.getLatitud()[i]);
-						intent.putExtra("longitud", bean.getLongitud()[i]);
-						intent.putExtra("distancia", bean.getDistancia()[i]);
-						intent.putExtra("url", bean.getUrl()[i]);
-						intent.putExtra("id_marker", bean.getId_marker()[i]);
+						intent.putExtra("nombre", bean_cat.getNombre()[i]);
+						intent.putExtra("lugar", bean_cat.getLugar()[i]);
+						intent.putExtra("hora_inicio", bean_cat.getHora_inicio()[i]);
+						intent.putExtra("hora_fin", bean_cat.getHora_fin()[i]);
+						intent.putExtra("imagen", bean_cat.getImagen()[i]);
+						intent.putExtra("descripcion", bean_cat.getDescripcion()[i]);
+						intent.putExtra("precio", bean_cat.getPrecio()[i]);
+						intent.putExtra("direccion", bean_cat.getDireccion()[i]);
+						intent.putExtra("fuente", bean_cat.getFuente()[i]);
+						intent.putExtra("fecha_inicio", bean_cat.getFecha_inicio()[i]);
+						intent.putExtra("fecha_fin", bean_cat.getFecha_fin()[i]);
+						intent.putExtra("categoria", bean_cat.getCategoria()[i]);
+						intent.putExtra("contacto", bean_cat.getContacto()[i]);
+						intent.putExtra("pagina", bean_cat.getPagina()[i]);
+						intent.putExtra("latitud", bean_cat.getLatitud()[i]);
+						intent.putExtra("longitud", bean_cat.getLongitud()[i]);
+						intent.putExtra("distancia", bean_cat.getDistancia()[i]);
+						intent.putExtra("url", bean_cat.getUrl()[i]);
+						intent.putExtra("id_marker", bean_cat.getId_marker()[i]);
 						intent.putExtra("mi_latitud", lat);
 						intent.putExtra("mi_longitud", lon);
 						startActivity(intent);
@@ -540,7 +664,7 @@ public class Eventario_main extends Activity {
 					
 					bean = Utils.llenarEventos(lat_+"",lon_+"",radio,horaInicio);
 					if(bean!=null){
-						cargarEventos();
+						cargarEventos("");
 					}
 				} catch (Exception e) {
 					e.getStackTrace();
@@ -562,14 +686,16 @@ public class Eventario_main extends Activity {
 			}
 
 			protected void onPostExecute(Void result) {
-				map.clear();
+				
 				if(bean!=null){
+					list.setAdapter(null);
 					list.setAdapter(adapter);
 				}else{
 					new Dialogos().Toast(Eventario_main.this,getResources().getString(R.string.toast_no_eventos), Toast.LENGTH_SHORT);
 					list.setAdapter(null);
 				}
 				
+				map.clear();
 				marker.position(new LatLng(Double.parseDouble(lat_),Double.parseDouble(lon_)));
 				Marker m=map.addMarker(marker);
 				id_ubicacion=m.getId();
@@ -585,6 +711,8 @@ public class Eventario_main extends Activity {
 					id_markers[i] = ma.getId();
 				}
 			   	bean.setId_marker(id_markers);
+			   	
+			   	LLenarCatalogos();
 			   }
 			   CameraPosition cameraPosition;
 				cameraPosition = new CameraPosition.Builder().target(new LatLng(Double.parseDouble(lat_), Double.parseDouble(lon_))).zoom(14).build();
@@ -596,8 +724,84 @@ public class Eventario_main extends Activity {
 			   super.onPostExecute(result);	
 					
 					
+				}			
+			
+		}
+		
+		
+		private void LLenarCatalogos() {
+
+			
+			ll_main_categorias.removeAllViews();
+			
+			ImageView imagen_todos = new ImageView(Eventario_main.this);
+			imagen_todos.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher));
+			imagen_todos.setTag("todos");
+			imagen_todos.setBackground(getResources().getDrawable(R.drawable.marco_todo));
+			imagen_todos.setPadding(10, 0, 10, 0);
+			imagen_todos.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					cargarEventos("");
+					list.setAdapter(null);
+					list.setAdapter(adapter);
+					catalogo_Mapa(bean);
+				}
+			});
+			ll_main_categorias.addView(imagen_todos);
+			
+			boolean unico= true;
+			for(int i=0;i<bean.getCategoria().length;i++){
+				unico= true;
+				ImageView imagen = new ImageView(Eventario_main.this);
+				int recurso=0;
+				
+				for(int j=0;j<ll_main_categorias.getChildCount();j++){
+					if(ll_main_categorias.getChildAt(j).getTag().toString().equals(bean.getCategoria()[i])){
+						unico=false;
+					}
+				}
+				if(unico){
+					
+					if(bean.getCategoria()[i].equals("Aprendizaje")){
+						recurso=(R.drawable.ic_launcher_aprendizaje);
+					}else if(bean.getCategoria()[i].equals("Tecnolog’a")){
+						recurso=(R.drawable.ic_launcher_tecnologia);
+					}else if(bean.getCategoria()[i].equals("Teatro")){
+						recurso=(R.drawable.ic_launcher_teatro);
+					}else if(bean.getCategoria()[i].equals("Mœsica")){
+						recurso=(R.drawable.ic_launcher_musica);
+					}else if(bean.getCategoria()[i].equals("Infantiles")){
+						recurso=(R.drawable.ic_launcher_infantiles);
+					}else if(bean.getCategoria()[i].equals("Exposiciones")){
+						recurso=(R.drawable.ic_launcher_exposiciones);
+					}else if(bean.getCategoria()[i].equals("Deportivo")){
+						recurso=(R.drawable.ic_launcher_deportivo);
+					}else if(bean.getCategoria()[i].equals("Cultura")){
+						recurso=(R.drawable.ic_launcher_cultura);
+					}else if(bean.getCategoria()[i].equals("Cine")){
+						recurso=(R.drawable.ic_launcher_cine);
+					}
+					
+					imagen.setImageDrawable(getResources().getDrawable(recurso));
+					imagen.setTag(bean.getCategoria()[i]);
+					imagen.setBackground(getResources().getDrawable(R.drawable.marco_left));
+					imagen.setPadding(10, 0, 10, 0);
+					imagen.setOnClickListener(new View.OnClickListener() {
+						
+						@Override
+						public void onClick(View v) {
+							beanEventos b_=cargarEventos(v.getTag().toString());
+							list.setAdapter(null);
+							list.setAdapter(adapter);
+							catalogo_Mapa(b_);
+						}
+					});
+					ll_main_categorias.addView(imagen);
 				}
 				
+			}
 			
 		}
 		

@@ -19,7 +19,7 @@ public class CustomList extends ArrayAdapter<String> {
     private final String[] hora_inicio;
     private final String[] hora_fin;
     private final String[] distancia;
-    private final int[] imagen;
+    private final Integer[] imagen;
 
 
     /**
@@ -31,7 +31,7 @@ public class CustomList extends ArrayAdapter<String> {
      * @param distancia
      * @param imagen
      */
-    public CustomList(Activity context,String[] nombre,String[] hora_inicio,String[] hora_fin,String[] distancia,int[] imagen) {
+    public CustomList(Activity context,String[] nombre,String[] hora_inicio,String[] hora_fin,String[] distancia,Integer[] imagen) {
         super(context, R.layout.list_simple, nombre);
         this.context = context;
         this.nombre = nombre;
@@ -39,10 +39,13 @@ public class CustomList extends ArrayAdapter<String> {
         this.hora_fin= hora_fin;
         this.distancia= distancia;
         this.imagen=imagen;
+
     }
     
     
-    @Override
+   
+
+	@Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView= inflater.inflate(R.layout.list_simple, null, true);

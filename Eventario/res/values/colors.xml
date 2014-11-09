@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="rojo_logo">#EF4147</color>
+    <color name="rojo_logo">#0766cf</color>
     <color name="blanco">#FFFFFF</color>
     <color name="negro">#000000</color>
     <color name="gris_claro">#E6E7E8</color>
