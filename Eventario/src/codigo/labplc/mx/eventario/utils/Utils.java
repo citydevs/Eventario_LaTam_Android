@@ -3,7 +3,9 @@ package codigo.labplc.mx.eventario.utils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -96,7 +98,8 @@ public class Utils {
  */
 	public  static beanEventos llenarEventos(String lat,String lon,String radio,String fecha){
 			try{
-				  String Sjson=  doHttpConnection("http://eventario.mx/eventos.json?lat="+lat+"&lon="+lon+"&dist="+radio);
+				  String Sjson=  doHttpConnection("http://eventario.mx/eventos.json?lat="+lat+"&lon="+lon+"&dist="+radio+
+						  "&fecha="+fecha);
 				  JSONArray jsonarray = new JSONArray(Sjson);
 				  beanEventos bean = new    beanEventos();
 
@@ -128,11 +131,11 @@ public class Utils {
 							categoria[i]=((String) oneObject.getString("categoria"));
 							if(categoria[i].equals("Aprendizaje")){
 								imagen[i]=(R.drawable.ic_launcher_aprendizaje);
-							}else if(categoria[i].equals("Tecnología")){
+							}else if(categoria[i].equals("Tecnolog√≠a")){
 								imagen[i]=(R.drawable.ic_launcher_tecnologia);
 							}else if(categoria[i].equals("Teatro")){
 								imagen[i]=(R.drawable.ic_launcher_teatro);
-							}else if(categoria[i].equals("Música")){
+							}else if(categoria[i].equals("M√∫sica")){
 								imagen[i]=(R.drawable.ic_launcher_musica);
 							}else if(categoria[i].equals("Infantiles")){
 								imagen[i]=(R.drawable.ic_launcher_infantiles);
@@ -247,7 +250,7 @@ public class Utils {
 	 
 	 
 	 /**
-		 * obtienes el tamaño de pantalla
+		 * obtienes el tama√±o de pantalla
 		 * @param (activity) Activity
 		 * @return (Point) .x = width
 		 * 					.y = height 
@@ -352,6 +355,28 @@ public class Utils {
 		 		pDialog.setCancelable(false);
 		 		return pDialog;
 
+			}
+			
+			
+			/**
+			 * obtener los milisegundos de una fecha
+			 * 
+			 * @return
+			 */
+			public static long getFechaHoy() {
+				Calendar now = Calendar.getInstance();
+				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+				String fechaCel = now.get(Calendar.DAY_OF_MONTH) + "/"
+						+ ((now.get(Calendar.MONTH)) + 1) + "/"
+						+ now.get(Calendar.YEAR) + " " + now.get(Calendar.HOUR_OF_DAY)
+						+ ":" + now.get(Calendar.MINUTE) + ":"
+						+ now.get(Calendar.SECOND);
+				try {
+					return (formatter.parse(fechaCel)).getTime();
+				} catch (java.text.ParseException e) {
+					e.printStackTrace();
+					return 0;
+				}
 			}
 	 
 }

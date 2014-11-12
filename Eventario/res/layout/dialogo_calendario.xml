@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_toast"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/ic_launcher"
+            android:gravity="center|left"
+            android:layout_gravity="center"
+            android:text="@string/app_name" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/rojo_logo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="@string/calendario_titulo" />
+
+    <CalendarView
+        android:id="@+id/dialogo_calendario"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginBottom="5dp"
+        android:maxDate="31/12/2015"
+        android:minDate="01/01/2014"
+        android:showWeekNumber="false" />
+
+</LinearLayout>

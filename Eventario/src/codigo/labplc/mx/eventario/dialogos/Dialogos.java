@@ -1,5 +1,8 @@
 package codigo.labplc.mx.eventario.dialogos;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -10,8 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.CalendarView.OnDateChangeListener;
 import codigo.labplc.mx.eventario.R;
 
 public class Dialogos {
@@ -22,7 +27,7 @@ public class Dialogos {
 	/**
 	 * Dialogo para asegurar que quieres salir de la app
 	 *
-	 * @param Activity (actividad que llama al di‡logo)
+	 * @param Activity (actividad que llama al diï¿½logo)
 	 * @return Dialog (regresa el dialogo creado)
 	 **/
 	
@@ -53,13 +58,13 @@ public class Dialogos {
                 activity.finish();
             }
         });
-        return (customDialog=builder.create());// return customDialog;//regresamos el di‡logo
+        return (customDialog=builder.create());// return customDialog;//regresamos el diï¿½logo
     }   
 	
 	/**
 	 * Dialogo para mostrar adicionales
 	 *
-	 * @param Activity (actividad que llama al di‡logo)
+	 * @param Activity (actividad que llama al diï¿½logo)
 	 * @return Dialog (regresa el dialogo creado)
 	 **/
 	
@@ -84,8 +89,14 @@ public class Dialogos {
             }
         });
 
-        return (customDialog=builder.create());// return customDialog;//regresamos el di‡logo
+        return (customDialog=builder.create());// return customDialog;//regresamos el diï¿½logo
     }  
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Toast custom 
@@ -104,4 +115,24 @@ public class Dialogos {
 	        mytoast.show();
 		}
 	
+		/**
+		 * obtener los milisegundos de una fecha
+		 * 
+		 * @return
+		 */
+		public static long getFechaHoy() {
+			Calendar now = Calendar.getInstance();
+			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			String fechaCel = now.get(Calendar.DAY_OF_MONTH) + "/"
+					+ ((now.get(Calendar.MONTH)) + 1) + "/"
+					+ now.get(Calendar.YEAR) + " " + now.get(Calendar.HOUR_OF_DAY)
+					+ ":" + now.get(Calendar.MINUTE) + ":"
+					+ now.get(Calendar.SECOND);
+			try {
+				return (formatter.parse(fechaCel)).getTime();
+			} catch (java.text.ParseException e) {
+				e.printStackTrace();
+				return 0;
+			}
+		}
 }

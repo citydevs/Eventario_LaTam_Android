@@ -150,7 +150,7 @@
             android:src="@drawable/ic_launcher_gps" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/eventario_main_iv_calendar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".33"

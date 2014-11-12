@@ -1,12 +1,15 @@
 package codigo.labplc.mx.eventario;
 
-
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,12 +18,15 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.CalendarView.OnDateChangeListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -85,6 +91,8 @@ public class Eventario_main extends Activity {
 	private LinearLayout ll_main_categorias;
 	private boolean conImagenes = true;
 	private TextView tv_main_titulo;
+	public  AlertDialog customDialog= null;
+	public String fecha_seleccionada = null;
 
 
 	
@@ -195,6 +203,17 @@ public class Eventario_main extends Activity {
 			}
 		});
 		
+		ImageView eventario_main_iv_calendar =(ImageView)findViewById(R.id.eventario_main_iv_calendar);
+		eventario_main_iv_calendar.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				showDialogCalendario(Eventario_main.this).show();
+			}
+		});
+		
+		
+		
 		
 		eventario_main_btn_busca_aqui=(Button)findViewById(R.id.eventario_main_btn_busca_aqui);
 		eventario_main_btn_busca_aqui.setOnClickListener(new View.OnClickListener() {
@@ -261,11 +280,8 @@ public class Eventario_main extends Activity {
 				
 			}
 			
-			bean_cat=b;
-
-			
+			 bean_cat=b;
 			 adapter = new CustomList(Eventario_main.this, b.getNombre(), b.getHora_inicio(),b.getHora_fin(),b.getDistancia(),b.getImagen(),conImagenes);
-			        
 			    
 			return b;
 		}catch(Exception e){
@@ -280,7 +296,11 @@ public class Eventario_main extends Activity {
 	
 	
 	
-	
+	/**
+	 * carga eventos en el mapa
+	 * @param b (beanEventos)
+	 * @return beanEventos
+	 */
 	public beanEventos catalogo_Mapa(beanEventos b){
 		
 		map.clear();
@@ -393,14 +413,9 @@ public class Eventario_main extends Activity {
 					if(!marker.getId().toString().equals(id_ubicacion)){
 						
 						abrirDetalles(marker.getId().toString());
-					}
-					
+					}	
 				}
-
-				
 			});
-	
-			
 			map.setInfoWindowAdapter(new InfoWindowAdapter() {
 	            @Override
 	            public View getInfoWindow(Marker marker) {              
@@ -423,10 +438,6 @@ public class Eventario_main extends Activity {
 			              pupop_nombre.setText(getResources().getString(R.string.mapa_inicio_de_viaje));
 						 return v;
 	            	}
-	            	 
-	                
-	              
-
 	            }
 	        });
 			if(isLocalizado>=1){
@@ -536,8 +547,13 @@ public class Eventario_main extends Activity {
 					Calendar c = Calendar.getInstance();
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					String horaInicio = sdf.format(c.getTime());
-					
+					if(fecha_seleccionada!=null){
+						horaInicio= fecha_seleccionada;
+					}
 					bean = Utils.llenarEventos(lat_+"",lon_+"",radio,horaInicio);
+					
+		
+					
 					if(bean!=null){
 						conImagenes=true;
 						cargarEventos("");
@@ -606,7 +622,9 @@ public class Eventario_main extends Activity {
 			
 		}
 		
-		
+		/**
+		 * Permite llenar la lista de eventos dependiendo la categiria seleccionada
+		 */
 		private void LLenarCatalogos() {
 
 			
@@ -649,11 +667,11 @@ public class Eventario_main extends Activity {
 					
 					if(bean.getCategoria()[i].equals("Aprendizaje")){
 						recurso=(R.drawable.ic_launcher_aprendizaje);
-					}else if(bean.getCategoria()[i].equals("Tecnología")){
+					}else if(bean.getCategoria()[i].equals("Tecnolog√≠a")){
 						recurso=(R.drawable.ic_launcher_tecnologia);
 					}else if(bean.getCategoria()[i].equals("Teatro")){
 						recurso=(R.drawable.ic_launcher_teatro);
-					}else if(bean.getCategoria()[i].equals("Música")){
+					}else if(bean.getCategoria()[i].equals("M√∫sica")){
 						recurso=(R.drawable.ic_launcher_musica);
 					}else if(bean.getCategoria()[i].equals("Infantiles")){
 						recurso=(R.drawable.ic_launcher_infantiles);
@@ -680,6 +698,7 @@ public class Eventario_main extends Activity {
 							limpiarLinearLayout();
 							imagen_todos.setBackground(getResources().getDrawable(R.drawable.marco_nada));
 							v.setBackground(getResources().getDrawable(R.drawable.marco_todo));
+							v.setPadding(10, 0, 10, 0);
 							tv_main_titulo.setText(v.getTag().toString());
 							
 							list.setAdapter(null);
@@ -699,9 +718,54 @@ public class Eventario_main extends Activity {
 		private void limpiarLinearLayout() {
 		for(int i=0;i<ll_main_categorias.getChildCount();i++){
 			ll_main_categorias.getChildAt(i).setBackground(getResources().getDrawable(R.drawable.marco_left));
+			ll_main_categorias.getChildAt(i).setPadding(10, 0, 10, 0);
 		}
 			
 		}
+		
+		
+		public Dialog showDialogCalendario(final Activity activity)
+	    {
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		    View view = activity.getLayoutInflater().inflate(R.layout.dialogo_calendario, null);
+		    builder.setView(view);
+		    builder.setCancelable(true);
+		    
+		    CalendarView dialogo_calendario = (CalendarView) view.findViewById(R.id.dialogo_calendario);
+		    dialogo_calendario.setMinDate(Utils.getFechaHoy());
+		    
+		    if(fecha_seleccionada!=null){
+		    	SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+				try {
+					Date d = f.parse(fecha_seleccionada);
+					dialogo_calendario.setDate (d.getTime(), true, true);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		    	
+		    }else{
+		    	dialogo_calendario.setDate (Utils.getFechaHoy(), true, true);
+		    }
+			
+			dialogo_calendario.setOnDateChangeListener(new OnDateChangeListener() {
+
+	            @Override
+	            public void onSelectedDayChange(CalendarView view, int year, int month,
+	                    int dayOfMonth) {
+	                
+	            	fecha_seleccionada= year+"-"+(month+1)+"-"+dayOfMonth;
+	            	Log.d("****************", fecha_seleccionada);
+	            	Uploaded nuevaTareas = new Uploaded();
+					nuevaTareas.execute(lat+"",lon+"");
+					customDialog.dismiss();
+	            }
+	        });
+		
+
+	        return (customDialog=builder.create());// return customDialog;//regresamos el diÔøΩlogo
+	    }  
 		
 		@Override
 		public boolean dispatchKeyEvent(KeyEvent event) {

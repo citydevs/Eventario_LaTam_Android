@@ -14,7 +14,7 @@
     <string name="mapa_GPS_OFF">internet apagado inseperado</string>
     <string name="mapa_no_encontrado">Dirección no encontrada</string>
     <string name="mapa_texto_significado_el_viaje_inicio">Espera, te estamos localizando</string>
-    <string name="mapa_buscar">Buscar</string>
+    <string name="mapa_buscar">Buscar por zona</string>
     <string name="title_activity_configuracion_activity">Configuracion_activity</string>
     <string name="mapa_titulo_boton_mas">Buscar en esta zona</string>
     <string name="mapa_localizando">Actualizando, espera ....</string>
@@ -48,6 +48,13 @@
     <string name="title_activity_mapa_llegar_evento">Mapa_llegar_evento</string>
     <string name="title_activity_pagina_web_evento">PaginaWebEvento</string>
     <string name="title_activity_splash">SplashActivity</string>
+    
+    
+    <!-- Calendario -->
+    <string name="calendario_titulo">Selecciona un día en el calendario para poder ver los eventos que ocurrirán en esta fecha</string>
+    
+    
+  
     
     
     

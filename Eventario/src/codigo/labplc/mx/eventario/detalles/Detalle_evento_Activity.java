@@ -151,7 +151,7 @@ public class Detalle_evento_Activity extends Activity implements OnClickListener
 			public void onClick(View v) {
 				Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
 				sharingIntent.setType("text/plain");
-				String shareBody = "visitaré "+url +" @eventarioCDMX #eventario";
+				String shareBody = "visitar√© "+url +" @eventarioCDMX #eventario";
 				sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Eventario");
 				sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 				startActivity(Intent.createChooser(sharingIntent, "Share via"));
