@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -93,6 +94,7 @@ public class Eventario_main extends Activity {
 	private TextView tv_main_titulo;
 	public  AlertDialog customDialog= null;
 	public String fecha_seleccionada = null;
+	public boolean cambio_fecha=true;
 
 
 	
@@ -732,7 +734,7 @@ public class Eventario_main extends Activity {
 		    builder.setView(view);
 		    builder.setCancelable(true);
 		    
-		    CalendarView dialogo_calendario = (CalendarView) view.findViewById(R.id.dialogo_calendario);
+		    final CalendarView dialogo_calendario = (CalendarView) view.findViewById(R.id.dialogo_calendario);
 		    dialogo_calendario.setMinDate(Utils.getFechaHoy());
 		    
 		    if(fecha_seleccionada!=null){
@@ -741,7 +743,6 @@ public class Eventario_main extends Activity {
 					Date d = f.parse(fecha_seleccionada);
 					dialogo_calendario.setDate (d.getTime(), true, true);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 		    	
@@ -756,13 +757,21 @@ public class Eventario_main extends Activity {
 	                    int dayOfMonth) {
 	                
 	            	fecha_seleccionada= year+"-"+(month+1)+"-"+dayOfMonth;
-	            	Log.d("****************", fecha_seleccionada);
-	            	Uploaded nuevaTareas = new Uploaded();
-					nuevaTareas.execute(lat+"",lon+"");
-					customDialog.dismiss();
 	            }
 	        });
-		
+			
+			Button dialogo_calendario_aceptar =(Button)view.findViewById(R.id.dialogo_calendario_aceptar);
+			dialogo_calendario_aceptar.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Uploaded nuevaTareas = new Uploaded();
+					nuevaTareas.execute(map.getCameraPosition().target.latitude+"",map.getCameraPosition().target.longitude+"");
+					customDialog.dismiss();
+					
+				}
+			});
+			
 
 	        return (customDialog=builder.create());// return customDialog;//regresamos el di�logo
 	    }  

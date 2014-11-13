@@ -365,12 +365,10 @@ public class Utils {
 			 */
 			public static long getFechaHoy() {
 				Calendar now = Calendar.getInstance();
-				SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-				String fechaCel = now.get(Calendar.DAY_OF_MONTH) + "/"
-						+ ((now.get(Calendar.MONTH)) + 1) + "/"
-						+ now.get(Calendar.YEAR) + " " + now.get(Calendar.HOUR_OF_DAY)
-						+ ":" + now.get(Calendar.MINUTE) + ":"
-						+ now.get(Calendar.SECOND);
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				String fechaCel = now.get(Calendar.YEAR) + "-"
+						+ ((now.get(Calendar.MONTH)) + 1) + "-"
+						+ now.get(Calendar.DAY_OF_MONTH);
 				try {
 					return (formatter.parse(fechaCel)).getTime();
 				} catch (java.text.ParseException e) {

@@ -42,4 +42,16 @@
         android:minDate="01/01/2014"
         android:showWeekNumber="false" />
 
+    <Button
+        android:id="@+id/dialogo_calendario_aceptar"
+       android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/selector_btn_generic"
+        android:textColor="@drawable/selector_txt_boton_redondo"
+        android:gravity="center"
+        android:text="@string/configuracion_aceptar" />
+
 </LinearLayout>
