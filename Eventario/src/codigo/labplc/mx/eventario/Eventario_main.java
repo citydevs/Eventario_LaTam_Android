@@ -83,7 +83,6 @@ public class Eventario_main extends Activity {
 	private String id_ubicacion;
 	private String[] id_markers;
 	private boolean pause=false;
-	private  EditText eventario_main_et_direccion ;
 	private  ArrayList<InfoPointBean> InfoPoint;
 	private  Button eventario_main_btn_busca_aqui;
 	public String lat_,lon_;
@@ -125,7 +124,7 @@ public class Eventario_main extends Activity {
 		 
 		 if(progreso!=null){
 			 radio=progreso;
-		 }
+		 };
 		
 	     if(lat==19.0){
 	    	pDialog=Utils.anillo(Eventario_main.this,pDialog);
@@ -145,7 +144,6 @@ public class Eventario_main extends Activity {
 	        });
 	     
 	     
-	     eventario_main_et_direccion = (EditText)findViewById(R.id.eventario_main_et_direccion);
 	     
 		final ImageView handle= (ImageView)findViewById(R.id.handle);
 		 drawer = (SlidingDrawer)findViewById(R.id.drawer);
@@ -196,14 +194,7 @@ public class Eventario_main extends Activity {
 			}
 		});
 		
-		ImageView eventario_main_iv_lupa =(ImageView)findViewById(R.id.eventario_main_iv_lupa);
-		eventario_main_iv_lupa.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				direccionIngresada();
-			}
-		});
+	
 		
 		ImageView eventario_main_iv_calendar =(ImageView)findViewById(R.id.eventario_main_iv_calendar);
 		eventario_main_iv_calendar.setOnClickListener(new View.OnClickListener() {
@@ -237,36 +228,6 @@ public class Eventario_main extends Activity {
 		
 	}
 	
-	/**
-	 * hace la busqueda de un lugar en especifico
-	 * 
-	 */
-	public void direccionIngresada() {
-		drawer.close();
-		String direccion_busqueda=   eventario_main_et_direccion.getText().toString(); 
-		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-    	imm.hideSoftInputFromWindow(eventario_main_et_direccion.getWindowToken(), 0);
-    	
-		if(!direccion_busqueda.equals("")){
-			InfoPoint = null;
-			InfoPoint =Utils.busquedaDireccion(direccion_busqueda);
-			if(InfoPoint!=null){
-				try{
-				CameraPosition cameraPosition;
-				cameraPosition = new CameraPosition.Builder().target(new LatLng(InfoPoint.get(0).getDblLatitude(), InfoPoint.get(0).getDblLongitude())).zoom(map.getCameraPosition().zoom).build();
-				map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-				Uploaded nuevaTareas = new Uploaded();
-				nuevaTareas.execute(InfoPoint.get(0).getDblLatitude()+"", InfoPoint.get(0).getDblLongitude()+"");
-				}catch(Exception e){
-					eventario_main_et_direccion.setText("");
-					InfoPoint = null;
-					new Dialogos().Toast(Eventario_main.this, getResources().getString(R.string.mapa_no_encontrado), Toast.LENGTH_SHORT);
-				}
-			}
-		}
-		
-	}
-
 	/**
 	 * carga en la lista los eventos 
 	 * @return
@@ -685,6 +646,8 @@ public class Eventario_main extends Activity {
 						recurso=(R.drawable.ic_launcher_cultura);
 					}else if(bean.getCategoria()[i].equals("Cine")){
 						recurso=(R.drawable.ic_launcher_cine);
+					}else {
+						recurso=(R.drawable.ic_launcher);
 					}
 					
 					imagen.setImageDrawable(getResources().getDrawable(recurso));
@@ -773,16 +736,9 @@ public class Eventario_main extends Activity {
 			});
 			
 
-	        return (customDialog=builder.create());// return customDialog;//regresamos el di�logo
+	        return (customDialog=builder.create());// return customDialog;//regresamos el di���logo
 	    }  
 		
-		@Override
-		public boolean dispatchKeyEvent(KeyEvent event) {
-			if(String.valueOf(event.getKeyCode()).equals("66")){
-					direccionIngresada();
-			}
-		    return super.dispatchKeyEvent(event);
-		}
 		
 		@Override
 		public void onStart() {

@@ -75,6 +75,7 @@ public class Configuracion_activity extends Activity implements OnSeekBarChangeL
 		 	configuracion_tv_distancia =(TextView) findViewById(R.id.configuracion_tv_distancia);
 			SeekBar    seekbar = (SeekBar)findViewById(R.id.configuracion_sb_distancia); // make seekbar object
 	        seekbar.setOnSeekBarChangeListener(this); 
+	      
 	        SharedPreferences prefs = getSharedPreferences("MisPreferenciasEventario",Context.MODE_PRIVATE);
 			 progreso = prefs.getString("progreso", null);
 			 if(progreso!=null){
@@ -82,6 +83,7 @@ public class Configuracion_activity extends Activity implements OnSeekBarChangeL
 				 configuracion_tv_distancia.setText(progreso+" Km");
 			 }else{
 				 seekbar.setProgress(Integer.parseInt("2"));
+				 
 				 configuracion_tv_distancia.setText("2 Km"); 
 			 }
 			

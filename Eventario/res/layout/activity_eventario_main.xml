@@ -81,43 +81,7 @@
         </LinearLayout>
     </SlidingDrawer>
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:orientation="horizontal" >
-
-        <ImageView
-            android:id="@+id/eventario_main_iv_lupa"
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:background="@drawable/marco"
-            android:contentDescription="@string/app_name"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_launcher_buscar" />
-
-        <EditText
-            android:id="@+id/eventario_main_et_direccion"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight=".7"
-            android:background="@drawable/marco"
-            android:ems="10"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:hint="@string/mapa_buscar"
-            android:inputType="textAutoComplete"
-            android:paddingLeft="3dp"
-            android:textColorHint="@android:color/darker_gray"
-            android:textCursorDrawable="@drawable/color_cursor" />
-    </LinearLayout>
+   
 
     <Button
         android:id="@+id/eventario_main_btn_busca_aqui"
