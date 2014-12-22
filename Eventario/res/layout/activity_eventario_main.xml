@@ -5,58 +5,41 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <fragment
-        android:id="@+id/mapa"
+    <LinearLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/ll_main_menu"
-        class="com.google.android.gms.maps.MapFragment"
-        map:cameraTargetLat="19.432727"
-        map:cameraTargetLng="-99.133179"
-        map:cameraZoom="14" />
-
-    <SlidingDrawer
-        android:id="@+id/drawer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignBottom="@+id/mapa"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-        android:content="@+id/content"
-        android:handle="@+id/handle"
+        android:background="@drawable/marcolateral"
         android:orientation="vertical" >
 
-        <ImageView
-            android:id="@+id/handle"
+        <fragment
+            android:id="@+id/mapa"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/marco"
-            android:contentDescription="@string/app_name"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_launcher_mas" />
+            android:layout_height="0dp"
+            android:layout_above="@+id/content"
+            android:layout_alignParentTop="true"
+            android:layout_weight=".5"
+            class="com.google.android.gms.maps.MapFragment" />
 
         <LinearLayout
-            android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/marcolateral"
+            android:layout_height="0dp"
+            android:layout_weight=".5"
             android:orientation="vertical" >
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:overScrollMode="never" 
-                android:scrollbars="none">
+                android:overScrollMode="never"
+                android:scrollbars="none" >
 
                 <LinearLayout
                     android:id="@+id/ll_main_categorias"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal" 
-                    android:background="@drawable/marco_todo">
-
-                   
-                    
+                    android:background="@drawable/marco_todo"
+                    android:orientation="horizontal" >
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -79,24 +62,7 @@
                 android:overScrollMode="never" >
             </ListView>
         </LinearLayout>
-    </SlidingDrawer>
-
-   
-
-    <Button
-        android:id="@+id/eventario_main_btn_busca_aqui"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/linearLayout1"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/selector_btn_generic"
-        android:text="@string/mapa_titulo_boton_mas"
-        android:textColor="@drawable/selector_txt_boton_redondo"
-        android:visibility="invisible" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll_main_menu"

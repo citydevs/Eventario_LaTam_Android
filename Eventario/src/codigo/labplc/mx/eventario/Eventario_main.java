@@ -84,10 +84,8 @@ public class Eventario_main extends Activity {
 	private String[] id_markers;
 	private boolean pause=false;
 	private  ArrayList<InfoPointBean> InfoPoint;
-	private  Button eventario_main_btn_busca_aqui;
 	public String lat_,lon_;
 	private  CustomList adapter;
-	private SlidingDrawer drawer;
 	private LinearLayout ll_main_categorias;
 	private boolean conImagenes = true;
 	private TextView tv_main_titulo;
@@ -144,34 +142,12 @@ public class Eventario_main extends Activity {
 	        });
 	     
 	     
-	     
-		final ImageView handle= (ImageView)findViewById(R.id.handle);
-		 drawer = (SlidingDrawer)findViewById(R.id.drawer);
-		drawer.setOnDrawerOpenListener(new OnDrawerOpenListener() {
-			
-			@Override
-			public void onDrawerOpened() {
-				handle.setImageResource(R.drawable.ic_launcher_flechas);
-				
-				
-			}
-		});
-		drawer.setOnDrawerCloseListener(new OnDrawerCloseListener() {
-			
-			@Override
-			public void onDrawerClosed() {
-				handle.setImageResource(R.drawable.ic_launcher_mas);
-				eventario_main_btn_busca_aqui.setVisibility(Button.INVISIBLE);
-				
-			}
-		});
-		
+
 		ImageView eventario_main_iv_gps =(ImageView)findViewById(R.id.eventario_main_iv_gps);
 		eventario_main_iv_gps.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				drawer.close();
 				CameraPosition cameraPosition;
 				cameraPosition = new CameraPosition.Builder().target(new LatLng(lat, lon)).zoom(map.getCameraPosition().zoom).build();
 				map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -205,20 +181,6 @@ public class Eventario_main extends Activity {
 			}
 		});
 		
-		
-		
-		
-		eventario_main_btn_busca_aqui=(Button)findViewById(R.id.eventario_main_btn_busca_aqui);
-		eventario_main_btn_busca_aqui.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				drawer.close();
-				Uploaded nuevaTareas = new Uploaded();
-				nuevaTareas.execute(map.getCameraPosition().target.latitude+"",map.getCameraPosition().target.longitude+"");
-				
-			}
-		});
 		
 		ll_main_categorias=(LinearLayout)findViewById(R.id.ll_main_categorias);
 		tv_main_titulo=(TextView)findViewById(R.id.tv_main_titulo);
@@ -467,28 +429,11 @@ public class Eventario_main extends Activity {
 			if(Dialogos.customDialog!=null){
 				Dialogos.customDialog.dismiss();
 				finish();
-			}else if(drawer.isOpened()){
-				drawer.close();
 			}else{
 				super.onBackPressed();	
 			}
 		}
 		
-		@Override
-		public boolean dispatchTouchEvent(MotionEvent ev) {
-			switch (ev.getAction()) {
-			case MotionEvent.ACTION_DOWN:
-				break;
-			case MotionEvent.ACTION_UP:
-				if(Utils.getDistanceMeters(lat, lon,map.getCameraPosition().target.latitude, map.getCameraPosition().target.longitude)>=1000) {
-					eventario_main_btn_busca_aqui.setVisibility(Button.VISIBLE);
-				}else{
-					eventario_main_btn_busca_aqui.setVisibility(Button.INVISIBLE);
-				}
-				break;
-			}
-			return super.dispatchTouchEvent(ev);
-		}	
 		
 		
 		/**
@@ -545,11 +490,9 @@ public class Eventario_main extends Activity {
 				if(bean!=null){
 					list.setAdapter(null);
 					list.setAdapter(adapter);
-					drawer.setVisibility(SlidingDrawer.VISIBLE);
 				}else{
 					new Dialogos().Toast(Eventario_main.this,getResources().getString(R.string.toast_no_eventos), Toast.LENGTH_SHORT);
 					list.setAdapter(null);
-					drawer.setVisibility(SlidingDrawer.GONE);
 				}
 				
 				map.clear();
@@ -574,8 +517,7 @@ public class Eventario_main extends Activity {
 			   CameraPosition cameraPosition;
 				cameraPosition = new CameraPosition.Builder().target(new LatLng(Double.parseDouble(lat_), Double.parseDouble(lon_))).zoom(14).build();
 				map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));	
-				
-			   eventario_main_btn_busca_aqui.setVisibility(Button.INVISIBLE);
+
 			   pDialog_hilo.dismiss();
 				 
 			   super.onPostExecute(result);	
