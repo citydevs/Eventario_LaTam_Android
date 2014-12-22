@@ -92,6 +92,7 @@ public class Eventario_main extends Activity {
 	public  AlertDialog customDialog= null;
 	public String fecha_seleccionada = null;
 	public boolean cambio_fecha=true;
+	private  Button eventario_main_btn_busca_aqui;
 
 
 	
@@ -184,6 +185,21 @@ public class Eventario_main extends Activity {
 		
 		ll_main_categorias=(LinearLayout)findViewById(R.id.ll_main_categorias);
 		tv_main_titulo=(TextView)findViewById(R.id.tv_main_titulo);
+		
+		
+		
+		
+		eventario_main_btn_busca_aqui=(Button)findViewById(R.id.eventario_main_btn_busca_aqui);
+				eventario_main_btn_busca_aqui.setOnClickListener(new View.OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						Uploaded nuevaTareas = new Uploaded();
+						nuevaTareas.execute(map.getCameraPosition().target.latitude+"",map.getCameraPosition().target.longitude+"");
+						
+					}
+				});
+		
 		
 		
 		setUpMapIfNeeded();
@@ -519,6 +535,7 @@ public class Eventario_main extends Activity {
 				map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));	
 
 			   pDialog_hilo.dismiss();
+			   eventario_main_btn_busca_aqui.setVisibility(Button.INVISIBLE);
 				 
 			   super.onPostExecute(result);	
 					
@@ -734,6 +751,23 @@ public class Eventario_main extends Activity {
 			}catch(Exception e){}
 			
 			super.onResume();
+		}
+		
+		
+		@Override
+		public boolean dispatchTouchEvent(MotionEvent ev) {
+			switch (ev.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				break;
+			case MotionEvent.ACTION_UP:
+				if(Utils.getDistanceMeters(Double.parseDouble(lat_), Double.parseDouble(lon_),map.getCameraPosition().target.latitude, map.getCameraPosition().target.longitude)>=1000) {
+					eventario_main_btn_busca_aqui.setVisibility(Button.VISIBLE);
+				}else{
+					eventario_main_btn_busca_aqui.setVisibility(Button.INVISIBLE);
+				}
+				break;
+			}
+			return super.dispatchTouchEvent(ev);
 		}
 
 		
