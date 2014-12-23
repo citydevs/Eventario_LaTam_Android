@@ -139,6 +139,15 @@ public class Detalle_evento_Activity extends Activity implements OnClickListener
         TextView detalle_evento_tv_donde =(TextView)findViewById(R.id.detalle_evento_tv_donde);
         detalle_evento_tv_donde.setText(this.lugar);
         
+        TextView detalle_evento_tv_presio =(TextView)findViewById(R.id.detalle_evento_tv_presio);
+        detalle_evento_tv_presio.setText(this.precio);
+        
+        TextView detalle_evento_tv_detalle =(TextView)findViewById(R.id.detalle_evento_tv_detalle);
+        detalle_evento_tv_detalle.setText(this.descripcion);
+        
+        
+        
+        
       //  TextView detalle_evento_tv_direccion =(TextView)findViewById(R.id.detalle_evento_tv_direccion);
        // detalle_evento_tv_direccion.setText(this.direccion);  
         
