@@ -139,10 +139,10 @@ public class Detalle_evento_Activity extends Activity implements OnClickListener
         TextView detalle_evento_tv_donde =(TextView)findViewById(R.id.detalle_evento_tv_donde);
         detalle_evento_tv_donde.setText(this.lugar);
         
-        TextView detalle_evento_tv_direccion =(TextView)findViewById(R.id.detalle_evento_tv_direccion);
-        detalle_evento_tv_direccion.setText(this.direccion);  
+      //  TextView detalle_evento_tv_direccion =(TextView)findViewById(R.id.detalle_evento_tv_direccion);
+       // detalle_evento_tv_direccion.setText(this.direccion);  
         
-        
+      /*  
         
         ImageView detalle_evento_iv_compartir =(ImageView)findViewById(R.id.detalle_evento_iv_compartir);
         detalle_evento_iv_compartir.setOnClickListener(new View.OnClickListener() {
@@ -220,7 +220,7 @@ public class Detalle_evento_Activity extends Activity implements OnClickListener
 		});
         
         
-        
+        */
         
        
 		

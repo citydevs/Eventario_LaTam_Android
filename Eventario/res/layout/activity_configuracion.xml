@@ -1,9 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/shape_toast"
-    android:paddingBottom="5dp">
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_toast">
 
     <LinearLayout
         android:id="@+id/configuracion_ll"
@@ -109,12 +108,12 @@
         android:id="@+id/configuracion_btn_aceptar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignLeft="@+id/configuracion_sb_distancia"
+        android:layout_below="@+id/View03"
         android:layout_margin="5dp"
         android:background="@drawable/selector_btn_generic"
-        android:textColor="@drawable/selector_txt_boton_redondo"
         android:gravity="center"
-        android:text="@string/configuracion_aceptar" />
+        android:text="@string/configuracion_aceptar"
+        android:textColor="@drawable/selector_txt_boton_redondo" />
 
 </RelativeLayout>

@@ -39,7 +39,7 @@
     <string name="no_pagina">No tiene página web</string>
     <string name="detalle_descripcion">Descripción</string>
     <string name="detalle_telefono">Teléfono</string>
-
+ 	<string name="detalle_evento_btn_sitio">Visitar sitio</string>
     <!-- dialogo GPS -->
     <string name="dialogo_gps_titulo">Aviso</string>
     <string name="dialogo_gps_texto">Eventario requiere usar internet ¿Quiéres encenderla?</string>
