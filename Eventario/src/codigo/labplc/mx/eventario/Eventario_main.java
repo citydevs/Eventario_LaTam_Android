@@ -32,7 +32,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.SlidingDrawer;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.SlidingDrawer.OnDrawerCloseListener;
 import android.widget.SlidingDrawer.OnDrawerOpenListener;
 import android.widget.TextView;
@@ -93,13 +95,16 @@ public class Eventario_main extends Activity {
 	public String fecha_seleccionada = null;
 	public boolean cambio_fecha=true;
 	private  Button eventario_main_btn_busca_aqui;
-
+	private String progreso_busqueda = "2"; //por defaul son 2 km de busqueda
+	private TextView configuracion_tv_distancia; //tv que muestra el radio de busqueda
+	private String progreso_busqueda_temp; //auxiliar que permite ver ver al usuario el radio de busqueda de manera TEMPORAL
 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_eventario_main);
+		
 		
 		if (!Utils.isNetworkConnectionOk(Eventario_main.this)) {
 			new Dialogos().showDialogGPS(Eventario_main.this).show();		
@@ -164,9 +169,8 @@ public class Eventario_main extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(Eventario_main.this,Configuracion_activity.class);
-				startActivity(intent);
-				finish();
+				
+				showDialogConfig(Eventario_main.this).show();
 				
 			}
 		});
@@ -699,6 +703,76 @@ public class Eventario_main extends Activity {
 	    }  
 		
 		
+		public Dialog showDialogConfig(final Activity activity) 
+	    {
+			AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		    View view = activity.getLayoutInflater().inflate(R.layout.activity_configuracion, null);
+		    builder.setView(view);
+		    builder.setCancelable(true);
+		    
+		    Button configuracion_btn_aceptar=(Button)view.findViewById(R.id.configuracion_btn_aceptar);
+		    configuracion_btn_aceptar.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					progreso_busqueda =  progreso_busqueda_temp;
+
+					SharedPreferences prefs = getSharedPreferences("MisPreferenciasEventario", Context.MODE_PRIVATE);
+					SharedPreferences.Editor editor = prefs.edit();
+					editor.putString("progreso", progreso_busqueda);
+					editor.commit();
+					
+					
+					Uploaded nuevaTareas = new Uploaded();
+					nuevaTareas.execute(map.getCameraPosition().target.latitude+"",map.getCameraPosition().target.longitude+"");
+					customDialog.dismiss();
+					
+					
+				}
+			});
+		    
+		    configuracion_tv_distancia =(TextView) view.findViewById(R.id.configuracion_tv_distancia);
+			SeekBar    seekbar = (SeekBar)view.findViewById(R.id.configuracion_sb_distancia); // make seekbar object
+	      
+			 SharedPreferences prefs = getSharedPreferences("MisPreferenciasEventario",Context.MODE_PRIVATE);
+			 progreso_busqueda = prefs.getString("progreso", null);
+			 if(progreso_busqueda!=null){
+				 seekbar.setProgress(Integer.parseInt(progreso_busqueda));
+				 configuracion_tv_distancia.setText(progreso_busqueda+" Km");
+			 }else{
+				 seekbar.setProgress(Integer.parseInt("2"));
+				 
+				 configuracion_tv_distancia.setText("2 Km"); 
+			 }
+			
+	        
+	        seekbar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+
+	            @Override
+	            public void onStopTrackingTouch(SeekBar seekBar) {
+
+	            }
+
+	            @Override
+	            public void onStartTrackingTouch(SeekBar seekBar) {
+
+	            }
+	            @Override
+	            public void onProgressChanged(SeekBar seekBar, int progress,
+	                    boolean fromUser) {
+	            	progreso_busqueda_temp = progress+"";
+
+	       		 	configuracion_tv_distancia.setText(progreso_busqueda_temp+" Km");
+
+	            }
+	        });
+	        return (customDialog=builder.create());// return customDialog;//regresamos el dialogo
+	    }  
+		
+		
+		
+		
+		
 		@Override
 		public void onStart() {
 		  super.onStart();
@@ -735,6 +809,7 @@ public class Eventario_main extends Activity {
 
 		@Override
 		protected void onResume() {
+			Log.d("********************", "resume");
 			if(Dialogos.customDialog!=null){
 				Dialogos.customDialog.dismiss();
 			}
@@ -747,7 +822,7 @@ public class Eventario_main extends Activity {
 				}
 			}
 			try{
-					 registerReceiver(onBroadcast, new IntentFilter("key"));
+				registerReceiver(onBroadcast, new IntentFilter("key"));
 			}catch(Exception e){}
 			
 			super.onResume();
