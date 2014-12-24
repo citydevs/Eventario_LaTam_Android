@@ -13,6 +13,7 @@ import java.util.List;
 import org.json.JSONObject;
 
 import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.Criteria;
@@ -28,8 +29,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import codigo.labplc.mx.eventario.Eventario_main;
 import codigo.labplc.mx.eventario.R;
 import codigo.labplc.mx.eventario.utils.DirectionsJSONParser;
+import codigo.labplc.mx.eventario.utils.Utils;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -42,7 +45,8 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 public class Mapa_llegar_evento extends FragmentActivity implements OnClickListener {
 
-	GoogleMap map;
+	private GoogleMap map;
+	private ProgressDialog pDialog;
 
 	
 	public  static  String lat_;
@@ -54,6 +58,8 @@ public class Mapa_llegar_evento extends FragmentActivity implements OnClickListe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fragment_mapa_llegar_evento);
 		
+		pDialog=Utils.anillo(Mapa_llegar_evento.this,pDialog);
+    	pDialog.show();
 		
 		 final ActionBar ab = getActionBar();
 	     ab.setDisplayShowHomeEnabled(false);
@@ -256,7 +262,11 @@ public class Mapa_llegar_evento extends FragmentActivity implements OnClickListe
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
                 lineOptions.width(6);
-                lineOptions.color(getResources().getColor(R.color.rojo_logo));    
+                lineOptions.color(getResources().getColor(R.color.rojo_logo));  
+               
+                if(pDialog!=null){
+			 		pDialog.dismiss();
+			 	}
                 
             }
             

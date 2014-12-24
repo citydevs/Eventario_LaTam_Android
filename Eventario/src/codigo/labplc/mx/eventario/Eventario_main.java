@@ -118,7 +118,6 @@ public class Eventario_main extends Activity {
 		 progreso = prefs.getString("progreso", null);
 		 
 		
-		
 	     if(lat==19.0){
 	    	pDialog=Utils.anillo(Eventario_main.this,pDialog);
 	    	pDialog.show();
