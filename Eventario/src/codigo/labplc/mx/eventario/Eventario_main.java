@@ -117,9 +117,7 @@ public class Eventario_main extends Activity {
 		 SharedPreferences prefs = getSharedPreferences("MisPreferenciasEventario",Context.MODE_PRIVATE);
 		 progreso = prefs.getString("progreso", null);
 		 
-		 if(progreso!=null){
-			 radio=progreso;
-		 };
+		
 		
 	     if(lat==19.0){
 	    	pDialog=Utils.anillo(Eventario_main.this,pDialog);
@@ -490,6 +488,9 @@ public class Eventario_main extends Activity {
 				pDialog_hilo.setCancelable(false);
 				pDialog_hilo.show();
 				bean = null;
+				 if(progreso!=null){
+					 radio=progreso;
+				 };
 				super.onPreExecute();
 				
 			}
@@ -520,9 +521,9 @@ public class Eventario_main extends Activity {
 					id_markers[i] = ma.getId();
 				}
 			   	bean.setId_marker(id_markers);
-			   	
-			   	LLenarCatalogos();
+			   
 			   }
+				LLenarCatalogos();
 			   CameraPosition cameraPosition;
 				cameraPosition = new CameraPosition.Builder().target(new LatLng(Double.parseDouble(lat_), Double.parseDouble(lon_))).zoom(14).build();
 				map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));	
@@ -544,7 +545,7 @@ public class Eventario_main extends Activity {
 
 			
 			ll_main_categorias.removeAllViews();
-			
+	if(bean!=null){	
 		final	ImageView imagen_todos = new ImageView(Eventario_main.this);
 			imagen_todos.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher));
 			imagen_todos.setTag("todos");
@@ -568,6 +569,7 @@ public class Eventario_main extends Activity {
 			ll_main_categorias.addView(imagen_todos);
 			
 			boolean unico= true;
+			
 			for(int i=0;i<bean.getCategoria().length;i++){
 				unico= true;
 				ImageView imagen = new ImageView(Eventario_main.this);
@@ -629,6 +631,7 @@ public class Eventario_main extends Activity {
 				}
 				
 			}
+		}
 			
 		}
 		
@@ -711,6 +714,7 @@ public class Eventario_main extends Activity {
 					editor.putString("progreso", progreso_busqueda);
 					editor.commit();
 					
+					progreso = progreso_busqueda;
 					
 					Uploaded nuevaTareas = new Uploaded();
 					nuevaTareas.execute(lat+"",lon+"");
@@ -798,7 +802,6 @@ public class Eventario_main extends Activity {
 
 		@Override
 		protected void onResume() {
-			Log.d("********************", "resume");
 			if(Dialogos.customDialog!=null){
 				Dialogos.customDialog.dismiss();
 			}
