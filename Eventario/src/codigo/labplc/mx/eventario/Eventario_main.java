@@ -545,6 +545,7 @@ public class Eventario_main extends Activity {
 
 			
 			ll_main_categorias.removeAllViews();
+			
 	if(bean!=null){	
 		final	ImageView imagen_todos = new ImageView(Eventario_main.this);
 			imagen_todos.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher));

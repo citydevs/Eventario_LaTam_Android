@@ -61,7 +61,8 @@ public class Mapa_llegar_evento extends FragmentActivity implements OnClickListe
 	     final LayoutInflater inflater = (LayoutInflater)getSystemService("layout_inflater");
 	     View view = inflater.inflate(R.layout.abs_layout,null);   
 	     ab.setDisplayShowCustomEnabled(true);
-	     ((ImageView) view.findViewById(R.id.abs_layout_iv_logo)).setOnClickListener(this);;
+	     ((ImageView) view.findViewById(R.id.abs_layout_iv_logo)).setOnClickListener(this);
+	     ((ImageView) view.findViewById(R.id.abs_layout_iv_compartir)).setVisibility(ImageView.INVISIBLE);
 	     ab.setCustomView(view,new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
 	     ab.setCustomView(view);
 
@@ -254,8 +255,8 @@ public class Mapa_llegar_evento extends FragmentActivity implements OnClickListe
                 
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
-                lineOptions.width(5);
-                lineOptions.color(Color.RED);    
+                lineOptions.width(6);
+                lineOptions.color(getResources().getColor(R.color.rojo_logo));    
                 
             }
             
