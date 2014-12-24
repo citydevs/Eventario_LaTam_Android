@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
 import codigo.labplc.mx.eventario.bean.InfoPointBean;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -35,13 +36,18 @@ public class DirectionsJSONParser {
             /** Traversing all routes */
             for(int i=0;i<jRoutes.length();i++){            
                 jLegs = ( (JSONObject)jRoutes.get(i)).getJSONArray("legs");
-                @SuppressWarnings("rawtypes")
+                
+
+              
+               
+               @SuppressWarnings("rawtypes")
 				List path = new ArrayList<HashMap<String, String>>();
                 
                 /** Traversing all legs */
                 for(int j=0;j<jLegs.length();j++){
-                    jSteps = ( (JSONObject)jLegs.get(j)).getJSONArray("steps");
-                    
+       
+                jSteps = ( (JSONObject)jLegs.get(j)).getJSONArray("steps");
+                                 
                     /** Traversing all steps */
                     for(int k=0;k<jSteps.length();k++){
                         String polyline = "";

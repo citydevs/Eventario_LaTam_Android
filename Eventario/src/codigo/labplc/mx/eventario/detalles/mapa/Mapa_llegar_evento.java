@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import codigo.labplc.mx.eventario.Eventario_main;
 import codigo.labplc.mx.eventario.R;
 import codigo.labplc.mx.eventario.utils.DirectionsJSONParser;
@@ -47,6 +48,7 @@ public class Mapa_llegar_evento extends FragmentActivity implements OnClickListe
 
 	private GoogleMap map;
 	private ProgressDialog pDialog;
+	TextView mapa_llegar_tv_falta;
 
 	
 	public  static  String lat_;
@@ -80,6 +82,9 @@ public class Mapa_llegar_evento extends FragmentActivity implements OnClickListe
 			 lng_ =bundle.getString("lng");
 		}
 			
+		
+		mapa_llegar_tv_falta =(TextView)findViewById(R.id.mapa_llegar_tv_falta);
+		
 		 followMeLocationSource = new FollowMeLocationSource();
          
     }
@@ -223,11 +228,13 @@ public class Mapa_llegar_evento extends FragmentActivity implements OnClickListe
             JSONObject jObject;    
             List<List<HashMap<String, String>>> routes = null;                       
             
+            Log.d("**************", jsonData[0]+"");
+            
             try{
                 jObject = new JSONObject(jsonData[0]);
                 DirectionsJSONParser parser = new DirectionsJSONParser();
                 
-                // Starts parsing data
+               // Starts parsing data
                 routes = parser.parse(jObject);    
             }catch(Exception e){
                 e.printStackTrace();
@@ -258,6 +265,8 @@ public class Mapa_llegar_evento extends FragmentActivity implements OnClickListe
                     
                     points.add(position);                        
                 }
+                
+                
                 
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
@@ -364,7 +373,8 @@ public class Mapa_llegar_evento extends FragmentActivity implements OnClickListe
             map.addMarker(destino_marker); 
           
             
-            String url = getDirectionsUrl(latLng, new LatLng(Double.parseDouble(lat_), Double.parseDouble(lng_)));                
+            String url = getDirectionsUrl(latLng, new LatLng(Double.parseDouble(lat_), Double.parseDouble(lng_)));    
+            
            DownloadTask downloadTask = new DownloadTask();
            downloadTask.execute(url);
         }

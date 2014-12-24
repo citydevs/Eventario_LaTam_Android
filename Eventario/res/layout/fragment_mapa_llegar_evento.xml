@@ -16,7 +16,16 @@
         class="com.google.android.gms.maps.SupportMapFragment"
         map:cameraTargetLat="19.432727"
         map:cameraTargetLng="-99.133179"
-        map:cameraZoom="14" /> 
+        map:cameraZoom="14" />
+
+   <TextView
+       android:id="@+id/mapa_llegar_tv_falta"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentTop="true"
+       android:background="@color/blanco"
+       android:textColor="@color/rojo_logo"
+       android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
 
