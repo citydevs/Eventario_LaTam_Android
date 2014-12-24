@@ -34,7 +34,8 @@ public class PaginaWebEvento extends Activity implements OnClickListener {
 	     final LayoutInflater inflater = (LayoutInflater)getSystemService("layout_inflater");
 	     View view = inflater.inflate(R.layout.abs_layout,null);   
 	     ab.setDisplayShowCustomEnabled(true);
-	     ((ImageView) view.findViewById(R.id.abs_layout_iv_logo)).setOnClickListener(this);;
+	     ((ImageView) view.findViewById(R.id.abs_layout_iv_logo)).setOnClickListener(this);
+	     ((ImageView) view.findViewById(R.id.abs_layout_iv_compartir)).setVisibility(ImageView.INVISIBLE);
 	     ab.setCustomView(view,new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
 	     ab.setCustomView(view);
 		

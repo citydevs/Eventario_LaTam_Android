@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -12,7 +14,6 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import codigo.labplc.mx.eventario.Eventario_main;
 import codigo.labplc.mx.eventario.R;
-import codigo.labplc.mx.eventario.dialogos.Dialogos;
 
 /**
  * actividad que muestra las herramientas de eventario
@@ -47,7 +48,7 @@ public class Configuracion_activity extends Activity implements OnSeekBarChangeL
 				@Override
 				public void onClick(View v) {
 
-					new Dialogos().showDialogExtras(Configuracion_activity.this, getResources().getString(R.string.configuracion_acercade),getResources().getString(R.string.detalle_acerca_de)).show();
+					//new Dialogos().showDialogExtras(Configuracion_activity.this, getResources().getString(R.string.configuracion_acercade),getResources().getString(R.string.detalle_acerca_de)).show();
 				}
 			});
 			
@@ -56,7 +57,7 @@ public class Configuracion_activity extends Activity implements OnSeekBarChangeL
 				
 				@Override
 				public void onClick(View v) {
-					new Dialogos().showDialogExtras(Configuracion_activity.this,getResources().getString(R.string.configuracion_terminos), getResources().getString(R.string.detalle_terminos)).show();
+					//new Dialogos().showDialogExtras(Configuracion_activity.this,getResources().getString(R.string.configuracion_terminos), getResources().getString(R.string.detalle_terminos)).show();
 					
 				}
 			});
@@ -65,7 +66,7 @@ public class Configuracion_activity extends Activity implements OnSeekBarChangeL
 				
 				@Override
 				public void onClick(View v) {
-					new Dialogos().showDialogExtras(Configuracion_activity.this,getResources().getString(R.string.configuracion_creditos), getResources().getString(R.string.detalle_ab_creditos)).show();
+					//new Dialogos().showDialogExtras(Configuracion_activity.this,getResources().getString(R.string.configuracion_creditos), getResources().getString(R.string.detalle_ab_creditos)).show();
 					
 				}
 			});	
@@ -140,11 +141,8 @@ public class Configuracion_activity extends Activity implements OnSeekBarChangeL
 			startActivity(intent);
 			finish();
 	   }
-	@Override
-	public void onBackPressed() {
-		guardaPreferencia();
-	}
 	   
-	   
+	
+	
 	   
 }

@@ -27,7 +27,7 @@ public class Dialogos {
 	/**
 	 * Dialogo para asegurar que quieres salir de la app
 	 *
-	 * @param Activity (actividad que llama al di�logo)
+	 * @param Activity (actividad que llama al di���logo)
 	 * @return Dialog (regresa el dialogo creado)
 	 **/
 	
@@ -58,39 +58,9 @@ public class Dialogos {
                 activity.finish();
             }
         });
-        return (customDialog=builder.create());// return customDialog;//regresamos el di�logo
+        return (customDialog=builder.create());// return customDialog;//regresamos el di���logo
     }   
 	
-	/**
-	 * Dialogo para mostrar adicionales
-	 *
-	 * @param Activity (actividad que llama al di�logo)
-	 * @return Dialog (regresa el dialogo creado)
-	 **/
-	
-	public Dialog showDialogExtras(final Activity activity,String titulo,String contenido)
-    {
-		
-		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-	    View view = activity.getLayoutInflater().inflate(R.layout.dialogo_datos, null);
-	    builder.setView(view);
-	    builder.setCancelable(true);
-        //tipografias
-
-	    ((TextView) view.findViewById(R.id.dialogo_datos_tv_titulo)).setText(titulo);
-	    ((TextView) view.findViewById(R.id.dialogo_datos_tv_contenido)).setText(contenido);
-	  //escucha del boton aceptar
-        ((Button) view.findViewById(R.id.dialogo_datos_btn_aceptar)).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-            	Dialogos.customDialog.dismiss(); 
-
-            }
-        });
-
-        return (customDialog=builder.create());// return customDialog;//regresamos el di�logo
-    }  
 	
 	
 	

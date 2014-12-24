@@ -24,10 +24,11 @@
         android:textSize="18sp" />
     
     <ImageView
-        android:id="@+id/abs_layout_iv_menu"
+        android:id="@+id/abs_layout_iv_compartir"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight=".2"
+        android:src="@drawable/ic_launcher_compartir"
  
 />
 

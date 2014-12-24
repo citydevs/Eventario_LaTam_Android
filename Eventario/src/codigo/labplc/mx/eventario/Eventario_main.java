@@ -19,30 +19,22 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.CalendarView.OnDateChangeListener;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SeekBar;
-import android.widget.SlidingDrawer;
 import android.widget.SeekBar.OnSeekBarChangeListener;
-import android.widget.SlidingDrawer.OnDrawerCloseListener;
-import android.widget.SlidingDrawer.OnDrawerOpenListener;
 import android.widget.TextView;
 import android.widget.Toast;
 import codigo.labplc.mx.eventario.Eventario.TrackerName;
 import codigo.labplc.mx.eventario.bean.InfoPointBean;
 import codigo.labplc.mx.eventario.bean.beanEventos;
-import codigo.labplc.mx.eventario.configuracion.Configuracion_activity;
 import codigo.labplc.mx.eventario.customs.CustomList;
 import codigo.labplc.mx.eventario.detalles.Detalle_evento_Activity;
 import codigo.labplc.mx.eventario.dialogos.Dialogos;
@@ -51,6 +43,7 @@ import codigo.labplc.mx.eventario.utils.Utils;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.internal.ml;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
@@ -63,11 +56,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
- * clase principal 
+ * clase principal  muestra Dashboard de eventos
  * @author mikesaurio
  *
  */
-@SuppressWarnings("deprecation")
 public class Eventario_main extends Activity {
 
 	public final String TAG = this.getClass().getSimpleName();
@@ -85,7 +77,6 @@ public class Eventario_main extends Activity {
 	private String id_ubicacion;
 	private String[] id_markers;
 	private boolean pause=false;
-	private  ArrayList<InfoPointBean> InfoPoint;
 	public String lat_,lon_;
 	private  CustomList adapter;
 	private LinearLayout ll_main_categorias;
@@ -480,8 +471,6 @@ public class Eventario_main extends Activity {
 					}
 					bean = Utils.llenarEventos(lat_+"",lon_+"",radio,horaInicio);
 					
-		
-					
 					if(bean!=null){
 						conImagenes=true;
 						cargarEventos("");
@@ -724,7 +713,7 @@ public class Eventario_main extends Activity {
 					
 					
 					Uploaded nuevaTareas = new Uploaded();
-					nuevaTareas.execute(map.getCameraPosition().target.latitude+"",map.getCameraPosition().target.longitude+"");
+					nuevaTareas.execute(lat+"",lon+"");
 					customDialog.dismiss();
 					
 					

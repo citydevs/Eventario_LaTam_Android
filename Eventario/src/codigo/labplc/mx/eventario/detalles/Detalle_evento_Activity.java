@@ -5,6 +5,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -75,7 +78,8 @@ public class Detalle_evento_Activity extends Activity implements OnClickListener
 	     final LayoutInflater inflater = (LayoutInflater)getSystemService("layout_inflater");
 	     View view = inflater.inflate(R.layout.abs_layout,null);   
 	     ab.setDisplayShowCustomEnabled(true);
-	     ((ImageView) view.findViewById(R.id.abs_layout_iv_logo)).setOnClickListener(this);;
+	     ((ImageView) view.findViewById(R.id.abs_layout_iv_logo)).setOnClickListener(this);
+	     ((ImageView) view.findViewById(R.id.abs_layout_iv_compartir)).setOnClickListener(this);
 	     ab.setCustomView(view,new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
 	     ab.setCustomView(view);
 	     
@@ -147,33 +151,11 @@ public class Detalle_evento_Activity extends Activity implements OnClickListener
         
         
         
-        
-      //  TextView detalle_evento_tv_direccion =(TextView)findViewById(R.id.detalle_evento_tv_direccion);
-       // detalle_evento_tv_direccion.setText(this.direccion);  
-        
-      /*  
-        
-        ImageView detalle_evento_iv_compartir =(ImageView)findViewById(R.id.detalle_evento_iv_compartir);
-        detalle_evento_iv_compartir.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-				sharingIntent.setType("text/plain");
-				String shareBody = "visitar�� "+url +" @eventarioCDMX #eventario";
-				sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Eventario");
-				sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-				startActivity(Intent.createChooser(sharingIntent, "Share via"));
-				
-			}
-		});
-        
+    
      
         
         
-        
-     
-                */
+  
         
         Button detalle_evento_btn_sitio =(Button)findViewById(R.id.detalle_evento_btn_sitio);
         if(pagina.equals("No disponible")){
@@ -292,9 +274,14 @@ public class Detalle_evento_Activity extends Activity implements OnClickListener
 	public void onClick(View v) {
 		if (v.getId() == R.id.abs_layout_iv_logo) {
 	        	atras();
+			}else if(v.getId() == R.id.abs_layout_iv_compartir){
+				Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+				sharingIntent.setType("text/plain");
+				String shareBody = "visitaré "+url +" @eventarioCDMX #eventario";
+				sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Eventario");
+				sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+				startActivity(Intent.createChooser(sharingIntent, "Share via"));
 			}
-
-	       
 	    }
 	
 	/**
@@ -311,8 +298,6 @@ public class Detalle_evento_Activity extends Activity implements OnClickListener
 		
 		 atras();
 	}
-	 
-	 
 	 
 		
 		
