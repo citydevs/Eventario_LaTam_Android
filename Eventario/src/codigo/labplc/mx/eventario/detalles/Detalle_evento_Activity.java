@@ -8,11 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import codigo.labplc.mx.eventario.R;
 import codigo.labplc.mx.eventario.detalles.mapa.Mapa_llegar_evento;
-import codigo.labplc.mx.eventario.dialogos.Dialogos;
 import codigo.labplc.mx.eventario.web.PaginaWebEvento;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -143,7 +143,7 @@ public class Detalle_evento_Activity extends Activity implements OnClickListener
         detalle_evento_tv_presio.setText(this.precio);
         
         TextView detalle_evento_tv_detalle =(TextView)findViewById(R.id.detalle_evento_tv_detalle);
-        detalle_evento_tv_detalle.setText(this.descripcion);
+        detalle_evento_tv_detalle.setText(this.descripcion+" "+this.contacto);
         
         
         
@@ -160,7 +160,7 @@ public class Detalle_evento_Activity extends Activity implements OnClickListener
 			public void onClick(View v) {
 				Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
 				sharingIntent.setType("text/plain");
-				String shareBody = "visitaré "+url +" @eventarioCDMX #eventario";
+				String shareBody = "visitar�� "+url +" @eventarioCDMX #eventario";
 				sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Eventario");
 				sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
 				startActivity(Intent.createChooser(sharingIntent, "Share via"));
@@ -170,53 +170,17 @@ public class Detalle_evento_Activity extends Activity implements OnClickListener
         
      
         
-        ImageView detalle_evento_iv_dinero =(ImageView)findViewById(R.id.detalle_evento_iv_dinero);
-        if(precio.equals("No disponible")){
-        	detalle_evento_iv_dinero.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_dinero));
-        	detalle_evento_iv_dinero.setEnabled(false);
-		}
-        detalle_evento_iv_dinero.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				new Dialogos().showDialogExtras(Detalle_evento_Activity.this, getResources().getString(R.string.detalle_precio), precio).show();
-				
-			}
-		});
         
         
-        ImageView detalle_evento_iv_info =(ImageView)findViewById(R.id.detalle_evento_iv_info);
-        if(descripcion.equals("No disponible")){
-        	detalle_evento_iv_info.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_info));
-        	detalle_evento_iv_info.setEnabled(false);
-		}
-        detalle_evento_iv_info.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				new Dialogos().showDialogExtras(Detalle_evento_Activity.this, getResources().getString(R.string.detalle_descripcion), descripcion).show();
-			}
-		});
+     
+                */
         
-        ImageView detalle_evento_iv_tel =(ImageView)findViewById(R.id.detalle_evento_iv_tel);
-        if(contacto.equals("No disponible")){
-        	detalle_evento_iv_tel.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_tel));
-        	detalle_evento_iv_tel.setEnabled(false);
-		}
-        detalle_evento_iv_tel.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				new Dialogos().showDialogExtras(Detalle_evento_Activity.this, getResources().getString(R.string.detalle_telefono), contacto).show();
-						}
-		});
-        
-        ImageView detalle_evento_iv_www =(ImageView)findViewById(R.id.detalle_evento_iv_www);
+        Button detalle_evento_btn_sitio =(Button)findViewById(R.id.detalle_evento_btn_sitio);
         if(pagina.equals("No disponible")){
-        	detalle_evento_iv_www.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher_www));
-        	detalle_evento_iv_www.setEnabled(false);
+        	detalle_evento_btn_sitio.setText("Sitio no disponible");
+        	detalle_evento_btn_sitio.setEnabled(false);
 		}
-        detalle_evento_iv_www.setOnClickListener(new View.OnClickListener() {
+        detalle_evento_btn_sitio.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -229,7 +193,7 @@ public class Detalle_evento_Activity extends Activity implements OnClickListener
 		});
         
         
-        */
+
         
        
 		

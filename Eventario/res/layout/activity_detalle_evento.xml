@@ -155,8 +155,8 @@
                         android:id="@+id/detalle_evento_btn_sitio"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:layout_weight=".4"
                         android:layout_marginBottom="5dp"
+                        android:layout_weight=".4"
                         android:background="@drawable/selector_btn_generic"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
@@ -190,13 +190,14 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:src="@drawable/ic_launcher_dinero" />
 
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:overScrollMode="never" >
+                    android:overScrollMode="never"
+                    android:paddingTop="3dp" >
 
                     <TextView
                         android:id="@+id/detalle_evento_tv_presio"
@@ -204,18 +205,24 @@
                         android:layout_height="wrap_content"
                         android:gravity="center|left"
                         android:padding="5dp"
+                        android:paddingTop="3dp"
                         android:text="TextView" />
                 </ScrollView>
             </LinearLayout>
-           <LinearLayout
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight=".7"
                 android:orientation="horizontal" >
+
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:overScrollMode="never" >
+                    android:overScrollMode="never" 
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"  >
+
                     <TextView
                         android:id="@+id/detalle_evento_tv_detalle"
                         android:layout_width="match_parent"
