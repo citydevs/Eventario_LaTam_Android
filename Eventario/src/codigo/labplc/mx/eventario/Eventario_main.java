@@ -180,7 +180,7 @@ public class Eventario_main extends Activity {
 		ll_main_categorias=(LinearLayout)findViewById(R.id.ll_main_categorias);
 		tv_main_titulo=(TextView)findViewById(R.id.tv_main_titulo);
 		
-		
+		tv_main_titulo.setTypeface(new Fonts(Eventario_main.this).getTypeFace(Fonts.FLAG_BLACK));
 		
 		
 		eventario_main_btn_busca_aqui=(Button)findViewById(R.id.eventario_main_btn_busca_aqui);
