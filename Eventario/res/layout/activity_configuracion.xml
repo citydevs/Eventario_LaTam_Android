@@ -2,50 +2,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_toast">
-
-    <LinearLayout
-        android:id="@+id/configuracion_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="5dp" >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".8"
-            android:text="@string/configuracion_titulo_distancia" />
-
-        <TextView
-            android:id="@+id/configuracion_tv_distancia"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".2"
-            android:gravity="right"
-            android:text="" />
-    </LinearLayout>
+    android:background="@drawable/shape_toast" >
 
     <SeekBar
         android:id="@+id/configuracion_sb_distancia"
+        style="@style/CustomSeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/configuracion_ll"
-        android:layout_marginBottom="50dp" 
-        android:progress="1"
-		android:max="15"
-		style="@style/CustomSeekBar"
-		android:layout_margin="5dip"/>
+        android:layout_margin="5dip"
+        android:layout_marginBottom="50dp"
+        android:max="15"
+        android:progress="1" />
 
     <View
         android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="20dp"
         android:layout_below="@+id/configuracion_sb_distancia"
-        android:background="@color/gris_obscuro" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/rojo_logo" />
 
     <TextView
         android:id="@+id/configuracion_tv_acercade"
@@ -64,7 +43,9 @@
         android:layout_height="2dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/configuracion_tv_acercade"
-        android:background="@color/gris_obscuro" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/rojo_logo" />
 
     <TextView
         android:id="@+id/configuracion_tv_terminosuso"
@@ -83,18 +64,20 @@
         android:layout_height="2dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/configuracion_tv_terminosuso"
-        android:background="@color/gris_obscuro" />
-    
-     <TextView
-         android:id="@+id/configuracion_tv_creditos"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_alignParentLeft="true"
-         android:layout_below="@+id/View02"
-         android:layout_marginBottom="10dp"
-         android:layout_marginLeft="10dp"
-         android:layout_marginTop="10dp"
-         android:text="@string/configuracion_creditos" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/rojo_logo" />
+
+    <TextView
+        android:id="@+id/configuracion_tv_creditos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/View02"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/configuracion_creditos" />
 
     <View
         android:id="@+id/View03"
@@ -102,7 +85,9 @@
         android:layout_height="2dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/configuracion_tv_creditos"
-        android:background="@color/gris_obscuro" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/rojo_logo" />
 
     <Button
         android:id="@+id/configuracion_btn_aceptar"
@@ -115,5 +100,48 @@
         android:gravity="center"
         android:text="@string/configuracion_aceptar"
         android:textColor="@drawable/selector_txt_boton_redondo" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:drawableLeft="@drawable/ic_launcher"
+        android:gravity="center|left"
+        android:text="@string/app_name" />
+
+    <View
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/rojo_logo" />
+
+    <LinearLayout
+        android:id="@+id/configuracion_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/configuracion_sb_distancia"
+        android:layout_below="@+id/textView2"
+        android:layout_margin="5dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".8"
+            android:text="@string/configuracion_titulo_distancia" />
+
+        <TextView
+            android:id="@+id/configuracion_tv_distancia"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".2"
+            android:gravity="right" />
+    </LinearLayout>
 
 </RelativeLayout>

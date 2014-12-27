@@ -57,9 +57,10 @@ public class CustomList extends ArrayAdapter<String> {
         TextView txtTitle = (TextView) rowView.findViewById(R.id.row_tv_titulo);
         if(nombre[position].length()<=50){
         	txtTitle.setText(nombre[position]);
+        	txtTitle.setTypeface(new Fonts(context).getTypeFace(Fonts.FLAG_BOLD));
         }else{
         	txtTitle.setText(nombre[position].substring(0, 41)+"...");
-        	txtTitle.setTypeface(new Fonts(context).getTypeFace(Fonts.FLAG_BLACK));
+        	txtTitle.setTypeface(new Fonts(context).getTypeFace(Fonts.FLAG_BOLD));
         }
         TextView txtHorario = (TextView) rowView.findViewById(R.id.row_tv_horario);
         txtHorario.setText(hora_inicio[position]+" - "+hora_fin[position]);
