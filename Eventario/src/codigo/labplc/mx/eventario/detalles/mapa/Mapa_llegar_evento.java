@@ -33,6 +33,7 @@ import android.widget.TextView;
 import codigo.labplc.mx.eventario.Eventario_main;
 import codigo.labplc.mx.eventario.R;
 import codigo.labplc.mx.eventario.utils.DirectionsJSONParser;
+import codigo.labplc.mx.eventario.utils.Fonts;
 import codigo.labplc.mx.eventario.utils.Utils;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -69,6 +70,7 @@ public class Mapa_llegar_evento extends FragmentActivity implements OnClickListe
 	     final LayoutInflater inflater = (LayoutInflater)getSystemService("layout_inflater");
 	     View view = inflater.inflate(R.layout.abs_layout,null);   
 	     ab.setDisplayShowCustomEnabled(true);
+	     ((TextView) view.findViewById(R.id.abs_layout_tv_titulo)).setTypeface(new Fonts(this).getTypeFace(Fonts.FLAG_BOLD));
 	     ((ImageView) view.findViewById(R.id.abs_layout_iv_logo)).setOnClickListener(this);
 	     ((ImageView) view.findViewById(R.id.abs_layout_iv_compartir)).setVisibility(ImageView.INVISIBLE);
 	     ab.setCustomView(view,new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
@@ -227,8 +229,6 @@ public class Mapa_llegar_evento extends FragmentActivity implements OnClickListe
             
             JSONObject jObject;    
             List<List<HashMap<String, String>>> routes = null;                       
-            
-            Log.d("**************", jsonData[0]+"");
             
             try{
                 jObject = new JSONObject(jsonData[0]);

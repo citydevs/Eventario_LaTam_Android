@@ -25,7 +25,7 @@ public class SplashActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_screen);
 		FrameLayout frame_splash = (FrameLayout) findViewById(R.id.frame_splash);
-		Point p = Utils.getTamanoPantalla(SplashActivity.this); //tamaño de pantalla
+		Point p = Utils.getTamanoPantalla(SplashActivity.this); //tama√±o de pantalla
 		
 		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(p.x / 2, p.y / 3);
 		lp.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);

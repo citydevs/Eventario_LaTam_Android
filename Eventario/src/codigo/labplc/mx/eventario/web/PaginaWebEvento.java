@@ -11,7 +11,9 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import codigo.labplc.mx.eventario.R;
+import codigo.labplc.mx.eventario.utils.Fonts;
 /**
  * pagina web de los eventos
  * @author mikesaurio
@@ -34,6 +36,7 @@ public class PaginaWebEvento extends Activity implements OnClickListener {
 	     final LayoutInflater inflater = (LayoutInflater)getSystemService("layout_inflater");
 	     View view = inflater.inflate(R.layout.abs_layout,null);   
 	     ab.setDisplayShowCustomEnabled(true);
+	     ((TextView) view.findViewById(R.id.abs_layout_tv_titulo)).setTypeface(new Fonts(this).getTypeFace(Fonts.FLAG_BOLD));
 	     ((ImageView) view.findViewById(R.id.abs_layout_iv_logo)).setOnClickListener(this);
 	     ((ImageView) view.findViewById(R.id.abs_layout_iv_compartir)).setVisibility(ImageView.INVISIBLE);
 	     ab.setCustomView(view,new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));

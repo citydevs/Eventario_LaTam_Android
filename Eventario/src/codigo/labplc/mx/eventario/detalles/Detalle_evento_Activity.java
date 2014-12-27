@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import codigo.labplc.mx.eventario.R;
 import codigo.labplc.mx.eventario.detalles.mapa.Mapa_llegar_evento;
+import codigo.labplc.mx.eventario.utils.Fonts;
 import codigo.labplc.mx.eventario.web.PaginaWebEvento;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -78,6 +79,7 @@ public class Detalle_evento_Activity extends Activity implements OnClickListener
 	     final LayoutInflater inflater = (LayoutInflater)getSystemService("layout_inflater");
 	     View view = inflater.inflate(R.layout.abs_layout,null);   
 	     ab.setDisplayShowCustomEnabled(true);
+	     ((TextView) view.findViewById(R.id.abs_layout_tv_titulo)).setTypeface(new Fonts(this).getTypeFace(Fonts.FLAG_BOLD));
 	     ((ImageView) view.findViewById(R.id.abs_layout_iv_logo)).setOnClickListener(this);
 	     ((ImageView) view.findViewById(R.id.abs_layout_iv_compartir)).setOnClickListener(this);
 	     ab.setCustomView(view,new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
@@ -127,28 +129,31 @@ public class Detalle_evento_Activity extends Activity implements OnClickListener
         
         TextView detalle_evento_iv_evento =(TextView)findViewById(R.id.detalle_evento_tv_categoria);
         detalle_evento_iv_evento.setText(this.categoria);
+        detalle_evento_iv_evento.setTypeface(new Fonts(this).getTypeFace(Fonts.FLAG_BOLD));
         
         TextView detalle_evento_tv_categoria =(TextView)findViewById(R.id.detalle_evento_tv_titulo);
         detalle_evento_tv_categoria.setText(this.nombre);
-        
+        detalle_evento_tv_categoria.setTypeface(new Fonts(this).getTypeFace(Fonts.FLAG_BOLD_ITALIC));
         
         TextView detalle_evento_tv_hora =(TextView)findViewById(R.id.detalle_evento_tv_hora);
         detalle_evento_tv_hora.setText(this.hora_inicio+"-"+this.hora_fin);
-     
+        detalle_evento_tv_hora.setTypeface(new Fonts(this).getTypeFace(Fonts.FLAG_BOLD));
         
         TextView detalle_evento_tv_fecha =(TextView)findViewById(R.id.detalle_evento_tv_fecha);
         detalle_evento_tv_fecha.setText(this.fecha_inicio+" a "+this.fecha_fin);
-      
+        detalle_evento_tv_fecha.setTypeface(new Fonts(this).getTypeFace(Fonts.FLAG_BOLD));
         
         TextView detalle_evento_tv_donde =(TextView)findViewById(R.id.detalle_evento_tv_donde);
         detalle_evento_tv_donde.setText(this.lugar);
+        detalle_evento_tv_donde.setTypeface(new Fonts(this).getTypeFace(Fonts.FLAG_BOLD));
         
         TextView detalle_evento_tv_presio =(TextView)findViewById(R.id.detalle_evento_tv_presio);
         detalle_evento_tv_presio.setText(this.precio);
+        detalle_evento_tv_presio.setTypeface(new Fonts(this).getTypeFace(Fonts.FLAG_BOLD));
         
         TextView detalle_evento_tv_detalle =(TextView)findViewById(R.id.detalle_evento_tv_detalle);
         detalle_evento_tv_detalle.setText(this.descripcion+" "+this.contacto);
-        
+        detalle_evento_tv_detalle.setTypeface(new Fonts(this).getTypeFace(Fonts.FLAG_BOLD));
         
         
     

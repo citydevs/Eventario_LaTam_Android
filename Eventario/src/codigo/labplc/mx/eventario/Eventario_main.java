@@ -39,6 +39,7 @@ import codigo.labplc.mx.eventario.customs.CustomList;
 import codigo.labplc.mx.eventario.detalles.Detalle_evento_Activity;
 import codigo.labplc.mx.eventario.dialogos.Dialogos;
 import codigo.labplc.mx.eventario.servicio.ServicioGeolocalizacion;
+import codigo.labplc.mx.eventario.utils.Fonts;
 import codigo.labplc.mx.eventario.utils.Utils;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -89,6 +90,7 @@ public class Eventario_main extends Activity {
 	private String progreso_busqueda = "2"; //por defaul son 2 km de busqueda
 	private TextView configuracion_tv_distancia; //tv que muestra el radio de busqueda
 	private String progreso_busqueda_temp; //auxiliar que permite ver ver al usuario el radio de busqueda de manera TEMPORAL
+	TextView configuracion_tv_acercade,configuracion_tv_terminosuso,configuracion_tv_creditos;
 
 	
 	@Override
@@ -361,14 +363,19 @@ public class Eventario_main extends Activity {
 			                String s[] = marker.getTitle().split("@@");
 			                TextView   pupop_nombre = (TextView) v.findViewById(R.id.pupop_nombre);
 			                pupop_nombre.setText(s[0] );
+			                pupop_nombre.setTypeface(new Fonts(Eventario_main.this).getTypeFace(Fonts.FLAG_BOLD));
+			                
 			                TextView pupop_lugar = (TextView) v.findViewById(R.id.pupop_lugar);
 			                pupop_lugar.setText(s[1]);
+			                pupop_lugar.setTypeface(new Fonts(Eventario_main.this).getTypeFace(Fonts.FLAG_BOLD));
+			                pupop_lugar.setTextColor(getResources().getColor(R.color.gris_obscuro));
 			                return v;
 		            	
 	            	}else{
 	            		View v = getLayoutInflater().inflate(R.layout.windowlayout_simple, null);
 						 TextView   pupop_nombre = (TextView) v.findViewById(R.id.pupop_simple_nombre);
 			              pupop_nombre.setText(getResources().getString(R.string.mapa_inicio_de_viaje));
+			              pupop_nombre.setTypeface(new Fonts(Eventario_main.this).getTypeFace(Fonts.FLAG_BOLD));
 						 return v;
 	            	}
 	            }
@@ -695,8 +702,10 @@ public class Eventario_main extends Activity {
 	    }  
 		
 		
-		public Dialog showDialogConfig(final Activity activity) 
-	    {
+		public Dialog showDialogConfig(final Activity activity) {
+			
+			
+			
 			AlertDialog.Builder builder = new AlertDialog.Builder(activity);
 		    View view = activity.getLayoutInflater().inflate(R.layout.activity_configuracion, null);
 		    builder.setView(view);
@@ -759,6 +768,41 @@ public class Eventario_main extends Activity {
 
 	            }
 	        });
+	        
+	         configuracion_tv_acercade =(TextView)view.findViewById(R.id.configuracion_tv_acercade);
+	        configuracion_tv_acercade.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					((TextView) v).append("\n"+getResources().getString(R.string.detalle_acerca_de));
+					configuracion_tv_terminosuso.setText(getString(R.string.configuracion_terminos));
+					configuracion_tv_creditos.setText(getString(R.string.configuracion_creditos));
+				}
+			});
+	         configuracion_tv_terminosuso =(TextView)view.findViewById(R.id.configuracion_tv_terminosuso);
+	        configuracion_tv_terminosuso.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					((TextView) v).append("\n"+getResources().getString(R.string.detalle_terminos));
+					configuracion_tv_acercade.setText(getString(R.string.configuracion_acercade));
+					configuracion_tv_creditos.setText(getString(R.string.configuracion_creditos));
+					
+				}
+			});
+	         configuracion_tv_creditos =(TextView)view.findViewById(R.id.configuracion_tv_creditos);
+	        configuracion_tv_creditos.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					((TextView) v).append("\n"+getResources().getString(R.string.detalle_ab_creditos));
+					configuracion_tv_terminosuso.setText(getString(R.string.configuracion_terminos));
+					configuracion_tv_acercade.setText(getString(R.string.configuracion_acercade));
+					
+				}
+			});
+	        
+	        
 	        return (customDialog=builder.create());// return customDialog;//regresamos el dialogo
 	    }  
 		
@@ -827,7 +871,7 @@ public class Eventario_main extends Activity {
 			case MotionEvent.ACTION_DOWN:
 				break;
 			case MotionEvent.ACTION_UP:
-				if(Utils.getDistanceMeters(Double.parseDouble(lat_), Double.parseDouble(lon_),map.getCameraPosition().target.latitude, map.getCameraPosition().target.longitude)>=1000) {
+				if(Utils.getDistanceMeters(Double.parseDouble(lat_), Double.parseDouble(lon_),map.getCameraPosition().target.latitude, map.getCameraPosition().target.longitude)>=(Integer.parseInt(progreso)*1000)) {
 					eventario_main_btn_busca_aqui.setVisibility(Button.VISIBLE);
 				}else{
 					eventario_main_btn_busca_aqui.setVisibility(Button.INVISIBLE);

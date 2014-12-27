@@ -85,24 +85,5 @@ public class Dialogos {
 	        mytoast.show();
 		}
 	
-		/**
-		 * obtener los milisegundos de una fecha
-		 * 
-		 * @return
-		 */
-		public static long getFechaHoy() {
-			Calendar now = Calendar.getInstance();
-			SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			String fechaCel = now.get(Calendar.DAY_OF_MONTH) + "/"
-					+ ((now.get(Calendar.MONTH)) + 1) + "/"
-					+ now.get(Calendar.YEAR) + " " + now.get(Calendar.HOUR_OF_DAY)
-					+ ":" + now.get(Calendar.MINUTE) + ":"
-					+ now.get(Calendar.SECOND);
-			try {
-				return (formatter.parse(fechaCel)).getTime();
-			} catch (java.text.ParseException e) {
-				e.printStackTrace();
-				return 0;
-			}
-		}
+	
 }

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import codigo.labplc.mx.eventario.R;
+import codigo.labplc.mx.eventario.utils.Fonts;
 
 /**
  * clase que personaliza la lista de eventos
@@ -58,11 +59,16 @@ public class CustomList extends ArrayAdapter<String> {
         	txtTitle.setText(nombre[position]);
         }else{
         	txtTitle.setText(nombre[position].substring(0, 41)+"...");
+        	txtTitle.setTypeface(new Fonts(context).getTypeFace(Fonts.FLAG_BLACK));
         }
         TextView txtHorario = (TextView) rowView.findViewById(R.id.row_tv_horario);
         txtHorario.setText(hora_inicio[position]+" - "+hora_fin[position]);
+        txtHorario.setTypeface(new Fonts(context).getTypeFace(Fonts.FLAG_BOLD));
+        
         TextView txtDistancia = (TextView) rowView.findViewById(R.id.row_tv_tiempo);
         txtDistancia.setText(distancia[position]);
+        txtDistancia.setTypeface(new Fonts(context).getTypeFace(Fonts.FLAG_BOLD));
+        
         ImageView row_iv_evento =(ImageView)rowView.findViewById(R.id.row_iv_evento);
         row_iv_evento.setImageDrawable(context.getResources().getDrawable(imagen[position]));
         if(!conImagenes){
