@@ -88,7 +88,7 @@ public class Eventario_main extends Activity {
 	public boolean cambio_fecha=true;
 	private  Button eventario_main_btn_busca_aqui;
 	private String progreso_busqueda = "2"; //por defaul son 2 km de busqueda
-	private TextView configuracion_tv_distancia; //tv que muestra el radio de busqueda
+	private TextView configuracion_tv_distancia,configuracion_tv_distancia_titulo; //tv que muestra el radio de busqueda
 	private String progreso_busqueda_temp; //auxiliar que permite ver ver al usuario el radio de busqueda de manera TEMPORAL
 	TextView configuracion_tv_acercade,configuracion_tv_terminosuso,configuracion_tv_creditos;
 
@@ -659,6 +659,13 @@ public class Eventario_main extends Activity {
 		    builder.setView(view);
 		    builder.setCancelable(true);
 		    
+		    
+		    TextView calendario_titulo =(TextView) view.findViewById(R.id.calendario_titulo);
+		    calendario_titulo.setTypeface(new Fonts(Eventario_main.this).getTypeFace(Fonts.FLAG_BLACK));
+		    
+		    TextView calendario_texto =(TextView) view.findViewById(R.id.calendario_texto);
+		    calendario_texto.setTypeface(new Fonts(Eventario_main.this).getTypeFace(Fonts.FLAG_BOLD));
+		    
 		    final CalendarView dialogo_calendario = (CalendarView) view.findViewById(R.id.dialogo_calendario);
 		    dialogo_calendario.setMinDate(Utils.getFechaHoy());
 		    
@@ -716,31 +723,41 @@ public class Eventario_main extends Activity {
 				
 				@Override
 				public void onClick(View v) {
-					progreso_busqueda =  progreso_busqueda_temp;
-
-					SharedPreferences prefs = getSharedPreferences("MisPreferenciasEventario", Context.MODE_PRIVATE);
-					SharedPreferences.Editor editor = prefs.edit();
-					editor.putString("progreso", progreso_busqueda);
-					editor.commit();
-					
-					progreso = progreso_busqueda;
-					
-					Uploaded nuevaTareas = new Uploaded();
-					nuevaTareas.execute(lat+"",lon+"");
+					if(progreso_busqueda_temp!=null){
+						progreso_busqueda =  progreso_busqueda_temp;
+	
+						SharedPreferences prefs = getSharedPreferences("MisPreferenciasEventario", Context.MODE_PRIVATE);
+						SharedPreferences.Editor editor = prefs.edit();
+						editor.putString("progreso", progreso_busqueda);
+						editor.commit();
+						
+						progreso = progreso_busqueda;
+						
+						Uploaded nuevaTareas = new Uploaded();
+						nuevaTareas.execute(lat+"",lon+"");
+					}
 					customDialog.dismiss();
 					
 					
 				}
 			});
 		    
+		    TextView configuracion_tv_titulo =(TextView) view.findViewById(R.id.configuracion_tv_titulo);
+		    configuracion_tv_titulo.setTypeface(new Fonts(Eventario_main.this).getTypeFace(Fonts.FLAG_BLACK));
+		    
 		    configuracion_tv_distancia =(TextView) view.findViewById(R.id.configuracion_tv_distancia);
+		    configuracion_tv_distancia.setTypeface(new Fonts(Eventario_main.this).getTypeFace(Fonts.FLAG_BOLD));
+		    
+		    configuracion_tv_distancia_titulo=(TextView) view.findViewById(R.id.configuracion_tv_distancia_titulo);
+		    configuracion_tv_distancia_titulo.setTypeface(new Fonts(Eventario_main.this).getTypeFace(Fonts.FLAG_BOLD));
+		    
 			SeekBar    seekbar = (SeekBar)view.findViewById(R.id.configuracion_sb_distancia); // make seekbar object
 	      
 			 SharedPreferences prefs = getSharedPreferences("MisPreferenciasEventario",Context.MODE_PRIVATE);
-			 progreso_busqueda = prefs.getString("progreso", null);
-			 if(progreso_busqueda!=null){
-				 seekbar.setProgress(Integer.parseInt(progreso_busqueda));
-				 configuracion_tv_distancia.setText(progreso_busqueda+" Km");
+			 progreso = prefs.getString("progreso", "2");
+			 if(progreso!=null){
+				 seekbar.setProgress(Integer.parseInt(progreso));
+				 configuracion_tv_distancia.setText(progreso+" Km");
 			 }else{
 				 seekbar.setProgress(Integer.parseInt("2"));
 				 
@@ -770,32 +787,35 @@ public class Eventario_main extends Activity {
 	        });
 	        
 	         configuracion_tv_acercade =(TextView)view.findViewById(R.id.configuracion_tv_acercade);
+	         configuracion_tv_acercade.setTypeface(new Fonts(Eventario_main.this).getTypeFace(Fonts.FLAG_BOLD));
 	        configuracion_tv_acercade.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					((TextView) v).append("\n"+getResources().getString(R.string.detalle_acerca_de));
+					((TextView) v).setText(getString(R.string.configuracion_acercade)+":\n"+getResources().getString(R.string.detalle_acerca_de));
 					configuracion_tv_terminosuso.setText(getString(R.string.configuracion_terminos));
 					configuracion_tv_creditos.setText(getString(R.string.configuracion_creditos));
 				}
 			});
 	         configuracion_tv_terminosuso =(TextView)view.findViewById(R.id.configuracion_tv_terminosuso);
+	         configuracion_tv_terminosuso.setTypeface(new Fonts(Eventario_main.this).getTypeFace(Fonts.FLAG_BOLD));
 	        configuracion_tv_terminosuso.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					((TextView) v).append("\n"+getResources().getString(R.string.detalle_terminos));
+					((TextView) v).setText(getString(R.string.configuracion_terminos)+":\n"+getResources().getString(R.string.detalle_terminos));
 					configuracion_tv_acercade.setText(getString(R.string.configuracion_acercade));
 					configuracion_tv_creditos.setText(getString(R.string.configuracion_creditos));
 					
 				}
 			});
 	         configuracion_tv_creditos =(TextView)view.findViewById(R.id.configuracion_tv_creditos);
+	         configuracion_tv_creditos.setTypeface(new Fonts(Eventario_main.this).getTypeFace(Fonts.FLAG_BOLD));
 	        configuracion_tv_creditos.setOnClickListener(new View.OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					((TextView) v).append("\n"+getResources().getString(R.string.detalle_ab_creditos));
+					((TextView) v).setText(getString(R.string.configuracion_creditos)+":\n"+getResources().getString(R.string.detalle_ab_creditos));
 					configuracion_tv_terminosuso.setText(getString(R.string.configuracion_terminos));
 					configuracion_tv_acercade.setText(getString(R.string.configuracion_acercade));
 					

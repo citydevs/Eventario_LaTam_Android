@@ -1,112 +1,14 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_toast" >
-
-    <SeekBar
-        android:id="@+id/configuracion_sb_distancia"
-        style="@style/CustomSeekBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/configuracion_ll"
-        android:layout_margin="5dip"
-        android:layout_marginBottom="50dp"
-        android:max="15"
-        android:progress="1" />
-
-    <View
-        android:id="@+id/view1"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/configuracion_sb_distancia"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/rojo_logo" />
+    android:background="@drawable/shape_toast"
+    android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/configuracion_tv_acercade"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/view1"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/configuracion_acercade" />
-
-    <View
-        android:id="@+id/View01"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/configuracion_tv_acercade"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/rojo_logo" />
-
-    <TextView
-        android:id="@+id/configuracion_tv_terminosuso"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/View01"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/configuracion_terminos" />
-
-    <View
-        android:id="@+id/View02"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/configuracion_tv_terminosuso"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/rojo_logo" />
-
-    <TextView
-        android:id="@+id/configuracion_tv_creditos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/View02"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/configuracion_creditos" />
-
-    <View
-        android:id="@+id/View03"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/configuracion_tv_creditos"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/rojo_logo" />
-
-    <Button
-        android:id="@+id/configuracion_btn_aceptar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/configuracion_sb_distancia"
-        android:layout_below="@+id/View03"
-        android:layout_margin="5dp"
-        android:background="@drawable/selector_btn_generic"
-        android:gravity="center"
-        android:text="@string/configuracion_aceptar"
-        android:textColor="@drawable/selector_txt_boton_redondo" />
-
-    <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/configuracion_tv_titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:drawableLeft="@drawable/ic_launcher"
         android:gravity="center|left"
@@ -116,32 +18,114 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@color/rojo_logo" />
 
-    <LinearLayout
-        android:id="@+id/configuracion_ll"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/configuracion_sb_distancia"
-        android:layout_below="@+id/textView2"
-        android:layout_margin="5dp" >
+        android:overScrollMode="never" >
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".8"
-            android:text="@string/configuracion_titulo_distancia" />
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/configuracion_tv_distancia"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".2"
-            android:gravity="right" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/configuracion_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp" >
 
-</RelativeLayout>
+                <TextView
+                    android:id="@+id/configuracion_tv_distancia_titulo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".8"
+                    android:text="@string/configuracion_titulo_distancia" />
+
+                <TextView
+                    android:id="@+id/configuracion_tv_distancia"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2"
+                    android:gravity="right" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/configuracion_sb_distancia"
+                style="@style/CustomSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:layout_marginBottom="50dp"
+                android:max="15"
+                android:progress="1" />
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/rojo_logo" />
+
+            <TextView
+                android:id="@+id/configuracion_tv_acercade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/configuracion_acercade" />
+
+            <View
+                android:id="@+id/View01"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/rojo_logo" />
+
+            <TextView
+                android:id="@+id/configuracion_tv_terminosuso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/configuracion_terminos" />
+
+            <View
+                android:id="@+id/View02"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/rojo_logo" />
+
+            <TextView
+                android:id="@+id/configuracion_tv_creditos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="@string/configuracion_creditos" />
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:id="@+id/View03"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/rojo_logo" />
+
+    <Button
+        android:id="@+id/configuracion_btn_aceptar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/selector_btn_generic"
+        android:gravity="center"
+        android:text="@string/configuracion_aceptar"
+        android:textColor="@drawable/selector_txt_boton_redondo" />
+
+</LinearLayout>
