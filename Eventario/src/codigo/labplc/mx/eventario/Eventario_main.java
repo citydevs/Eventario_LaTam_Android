@@ -74,7 +74,7 @@ public class Eventario_main extends Activity {
     private ListView list;
 	private beanEventos bean,bean_cat;
 	private String radio="2";
-	private String progreso;
+	private String progreso = "2";
 	private String id_ubicacion;
 	private String[] id_markers;
 	private boolean pause=false;
@@ -117,7 +117,7 @@ public class Eventario_main extends Activity {
 		startService(new Intent(Eventario_main.this,ServicioGeolocalizacion.class));
 		
 		 SharedPreferences prefs = getSharedPreferences("MisPreferenciasEventario",Context.MODE_PRIVATE);
-		 progreso = prefs.getString("progreso", null);
+		 progreso = prefs.getString("progreso", "2");
 		 
 		
 	     if(lat==19.0){
